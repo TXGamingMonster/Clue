@@ -12,6 +12,10 @@ public class IntBoard {
 		
 	}
 	
+	public BoardCell getCell(int r, int c) {
+		return new BoardCell();
+	}
+	
 	public void calcAdjacencies() {
 		
 	}

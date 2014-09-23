@@ -1,13 +1,17 @@
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 
 public class IntBoardTests {
+	private IntBoard board;
 	@Before
 	public void setupBoard(){
-		IntBoard board = new IntBoard();
+		board = new IntBoard();
 	}
 
 	@Test
