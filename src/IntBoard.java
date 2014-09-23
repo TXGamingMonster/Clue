@@ -20,7 +20,7 @@ public class IntBoard {
 		
 	}
 	
-	public void calcTargets() {
+	public void calcTargets(BoardCell cell, int roll) {
 		
 	}
 	
