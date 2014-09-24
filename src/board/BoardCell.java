@@ -18,4 +18,11 @@ public class BoardCell {
 		return column;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this.getRow() == ((BoardCell) obj).getRow() && this.getColumn() == ((BoardCell) obj).getColumn())
+			return true;
+		return false;
+	}
+
 }

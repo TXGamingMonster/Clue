@@ -36,18 +36,19 @@ public class IntBoard {
 	
 	public LinkedList<BoardCell> getAdjList(BoardCell b) {
 		LinkedList<BoardCell> adjacentCells = new LinkedList<BoardCell>();
-		if(b.getRow() > 0 && b.getColumn() > 0) {
-			adjacentCells.add(new BoardCell(b.getRow()-1, b.getColumn()-1));
+		if(b.getRow() > 0) {
+			adjacentCells.add(new BoardCell(b.getRow()-1, b.getColumn()));
 		}
-		if(b.getRow() > 0 && b.getColumn() < 3) {
-			adjacentCells.add(new BoardCell(b.getRow()-1, b.getColumn()+1));
+		if(b.getColumn() > 0) {
+			adjacentCells.add(new BoardCell(b.getRow(), b.getColumn()-1));
 		}
-		if(b.getRow() < 3 && b.getColumn() > 0) {
-			adjacentCells.add(new BoardCell(b.getRow()+1, b.getColumn()-1));
+		if(b.getRow() < 3) {
+			adjacentCells.add(new BoardCell(b.getRow()+1, b.getColumn()));
 		}
-		if(b.getRow() < 3 && b.getColumn() < 3) {
-			adjacentCells.add(new BoardCell(b.getRow()+1, b.getColumn()+1));
+		if(b.getColumn() < 3) {
+			adjacentCells.add(new BoardCell(b.getRow(), b.getColumn()+1));
 		}
+		
 		return adjacentCells;
 	}
 
