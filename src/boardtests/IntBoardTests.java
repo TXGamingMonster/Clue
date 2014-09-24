@@ -1,3 +1,4 @@
+package boardtests;
 import static org.junit.Assert.*;
 
 import java.util.LinkedList;
@@ -6,6 +7,9 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import board.BoardCell;
+import board.IntBoard;
 
 
 public class IntBoardTests {
