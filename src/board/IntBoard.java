@@ -48,12 +48,8 @@ public class IntBoard {
 		//check if we have moved as far as possible, if so then add as a valid target.
 		if(roll == 0){
 			targets.add(cell);
-		}/*
-		for (BoardCell b : adjacencies.get(cell)) {
-			if (!visited.contains(b))
-				calcTargets(b, roll-1);
-		}*/
-		//this seems more correct than the above statement, but still need to fix calcAdjacencies.
+		}
+		
 		ArrayList<LinkedList<BoardCell>> adjCells = new ArrayList<LinkedList<BoardCell>>();
 		adjCells.add(adjacencies.get(cell));
 		for(LinkedList<BoardCell> l : adjCells){
