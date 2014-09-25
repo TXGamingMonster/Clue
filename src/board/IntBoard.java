@@ -13,7 +13,7 @@ public class IntBoard {
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	private BoardCell[][] board;
-	
+
 	public IntBoard() {
 		super();
 		adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
@@ -26,11 +26,11 @@ public class IntBoard {
 			}
 		}
 	}
-	
+
 	public BoardCell getCell(int r, int c) {
 		return board[r][c];
 	}
-	
+
 	public void calcAdjacencies() {
 		for (int r=0; r<NUM_ROWS; r++) {
 			for (int c=0; c<NUM_COLUMNS; c++) {
@@ -38,26 +38,26 @@ public class IntBoard {
 			}
 		}
 	}
-	
+
 	public void calcTargets(BoardCell cell, int roll) {
+		cell = getCell(cell.getRow(), cell.getColumn());
 		//add cell to visited list, as we are at 
 		visited.add(cell);
 		//check if we have moved as far as possible, if so then add as a valid target.
 		if(roll == 0){
 			targets.add(cell);
 		}
-		for(BoardCell c : adjacencies.get(cell)){
-			//if we haven't been to the adjacent cell being checked, visit it.
-			if(!visited.contains(c)){
-				calcTargets(c, roll-1);
-			}
+		for (BoardCell b : adjacencies.get(cell)) {
+			if (!visited.contains(b))
+				calcTargets(b, roll-1);
 		}
+
 	}
-	
+
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
-	
+
 	public LinkedList<BoardCell> getAdjList(BoardCell b) {
 		LinkedList<BoardCell> adjacentCells = new LinkedList<BoardCell>();
 		if(b.getRow() > 0) {
@@ -72,7 +72,7 @@ public class IntBoard {
 		if(b.getColumn() < NUM_COLUMNS-1) {
 			adjacentCells.add(new BoardCell(b.getRow(), b.getColumn()+1));
 		}
-		
+
 		return adjacentCells;
 	}
 
