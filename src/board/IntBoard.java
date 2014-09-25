@@ -1,5 +1,4 @@
 package board;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -42,21 +41,17 @@ public class IntBoard {
 	}
 
 	public void calcTargets(BoardCell cell, int roll) {
-		cell = getCell(cell.getRow(), cell.getColumn());
-		//add cell to visited list, as we are at 
+		cell = getCell(cell.getRow(), cell.getColumn()); //makes sure the memory address matches the board
+		//add cell to visited list
 		visited.add(cell);
 		//check if we have moved as far as possible, if so then add as a valid target.
 		if(roll == 0){
 			targets.add(cell);
 		}
-		
-		ArrayList<LinkedList<BoardCell>> adjCells = new ArrayList<LinkedList<BoardCell>>();
-		adjCells.add(adjacencies.get(cell));
-		for(LinkedList<BoardCell> l : adjCells){
-			for(BoardCell b : l){
-				if (!visited.contains(b) && roll>0)
-					calcTargets(b, roll-1);
-			}
+		//call calcTargets on valid adjacent cells
+		for(BoardCell b : adjacencies.get(cell)){
+			if (!visited.contains(b) && roll>0)
+				calcTargets(b, roll-1);
 		}
 	}
 
