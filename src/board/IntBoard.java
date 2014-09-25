@@ -1,4 +1,5 @@
 package board;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -25,6 +26,7 @@ public class IntBoard {
 				board[r][c] = new BoardCell(r,c);
 			}
 		}
+		calcAdjacencies();
 	}
 
 	public BoardCell getCell(int r, int c) {
@@ -34,7 +36,7 @@ public class IntBoard {
 	public void calcAdjacencies() {
 		for (int r=0; r<NUM_ROWS; r++) {
 			for (int c=0; c<NUM_COLUMNS; c++) {
-				adjacencies.put(board[r][c], getAdjList(board[r][c]));
+				adjacencies.put(getCell(r,c), getAdjList(getCell(r,c)));
 			}
 		}
 	}
@@ -46,12 +48,20 @@ public class IntBoard {
 		//check if we have moved as far as possible, if so then add as a valid target.
 		if(roll == 0){
 			targets.add(cell);
-		}
+		}/*
 		for (BoardCell b : adjacencies.get(cell)) {
 			if (!visited.contains(b))
 				calcTargets(b, roll-1);
+		}*/
+		//this seems more correct than the above statement, but still need to fix calcAdjacencies.
+		ArrayList<LinkedList<BoardCell>> adjCells = new ArrayList<LinkedList<BoardCell>>();
+		adjCells.add(adjacencies.get(cell));
+		for(LinkedList<BoardCell> l : adjCells){
+			for(BoardCell b : l){
+				if (!visited.contains(b) && roll>0)
+					calcTargets(b, roll-1);
+			}
 		}
-
 	}
 
 	public Set<BoardCell> getTargets() {
