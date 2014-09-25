@@ -12,23 +12,29 @@ public class IntBoard {
 	private Map<BoardCell, LinkedList<BoardCell>> adjacencies;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
+	private BoardCell[][] board;
 	
 	public IntBoard() {
 		super();
 		adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
+		board = new BoardCell[NUM_ROWS][NUM_COLUMNS];
+		for (int r=0; r<NUM_ROWS; r++) {
+			for (int c=0; c<NUM_COLUMNS; c++) {
+				board[r][c] = new BoardCell(r,c);
+			}
+		}
 	}
 	
 	public BoardCell getCell(int r, int c) {
-		return new BoardCell(r, c);
+		return board[r][c];
 	}
 	
 	public void calcAdjacencies() {
 		for (int r=0; r<NUM_ROWS; r++) {
 			for (int c=0; c<NUM_COLUMNS; c++) {
-				BoardCell temp = new BoardCell(r,c);
-				adjacencies.put(temp, getAdjList(temp));
+				adjacencies.put(board[r][c], getAdjList(board[r][c]));
 			}
 		}
 	}
@@ -70,5 +76,4 @@ public class IntBoard {
 		return adjacentCells;
 	}
 
-	
 }
