@@ -7,6 +7,8 @@ import java.util.Set;
 
 
 public class IntBoard {
+	private static final int NUM_ROWS = 4;
+	private static final int NUM_COLUMNS = 4;
 	private Map<BoardCell, LinkedList<BoardCell>> adjacencies;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
@@ -23,7 +25,12 @@ public class IntBoard {
 	}
 	
 	public void calcAdjacencies() {
-		
+		for (int r=0; r<NUM_ROWS; r++) {
+			for (int c=0; c<NUM_COLUMNS; c++) {
+				BoardCell temp = new BoardCell(r,c);
+				adjacencies.put(temp, getAdjList(temp));
+			}
+		}
 	}
 	
 	public void calcTargets(BoardCell cell, int roll) {
@@ -33,8 +40,7 @@ public class IntBoard {
 		if(roll == 0){
 			targets.add(cell);
 		}
-		LinkedList<BoardCell> cellList = new LinkedList<BoardCell>(getAdjList(cell));
-		for(BoardCell c : cellList){
+		for(BoardCell c : adjacencies.get(cell)){
 			//if we haven't been to the adjacent cell being checked, visit it.
 			if(!visited.contains(c)){
 				calcTargets(c, roll-1);
@@ -54,10 +60,10 @@ public class IntBoard {
 		if(b.getColumn() > 0) {
 			adjacentCells.add(new BoardCell(b.getRow(), b.getColumn()-1));
 		}
-		if(b.getRow() < 3) {
+		if(b.getRow() < NUM_ROWS-1) {
 			adjacentCells.add(new BoardCell(b.getRow()+1, b.getColumn()));
 		}
-		if(b.getColumn() < 3) {
+		if(b.getColumn() < NUM_COLUMNS-1) {
 			adjacentCells.add(new BoardCell(b.getRow(), b.getColumn()+1));
 		}
 		
