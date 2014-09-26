@@ -1,6 +1,6 @@
-package board;
+package clueGame;
 
-public class BoardCell {
+abstract public class BoardCell {
 	private int row;
 	private int column;
 	
