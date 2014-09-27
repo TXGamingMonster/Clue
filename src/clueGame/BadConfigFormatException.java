@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 public class BadConfigFormatException extends Exception{
 	String fileName = "log.txt";
 	public BadConfigFormatException() {
-		System.out.println("BadConfigFormatException thrown, correct the format of your configuration file to proceed.");
+		super();
 		try {
 		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
 		    out.println("BadConfigFormatException thrown, correct the format of your configuration file to proceed.");
