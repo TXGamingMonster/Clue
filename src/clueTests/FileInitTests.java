@@ -37,10 +37,15 @@ public class FileInitTests {
 		// Test retrieving a few from the hash, including the first
 		// and last in the file and a few others
 		assertEquals("Study", rooms.get('S'));
-		assertEquals("Ballroom", rooms.get('B'));
+		assertEquals("Kitchen", rooms.get('K'));
 		assertEquals("Hall", rooms.get('H'));
-		assertEquals("Dining room", rooms.get('D'));
-		assertEquals("Walkway", rooms.get('W'));
+		assertEquals("Lounge", rooms.get('A'));
+		assertEquals("Library", rooms.get('L'));
+		assertEquals("Closet", rooms.get('C'));
+		assertEquals("DiningRoom", rooms.get('D'));
+		assertEquals("Pool", rooms.get('P'));
+		assertEquals("Laboratory", rooms.get('F'));
+		assertEquals("Ballroom", rooms.get('B'));
 	}
 
 	@Test
