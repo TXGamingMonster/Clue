@@ -18,7 +18,7 @@ import clueGame.RoomCell;
 
 public class FileInitTests {
 
-	private static Board board;
+	private static Board board = new Board();
 	public static final int NUM_ROOMS = 10;
 	public static final int NUM_ROWS = 24;
 	public static final int NUM_COLUMNS = 24;
@@ -46,6 +46,7 @@ public class FileInitTests {
 		assertEquals("Pool", rooms.get('P'));
 		assertEquals("Laboratory", rooms.get('F'));
 		assertEquals("Ballroom", rooms.get('B'));
+		assertEquals("Walkway", rooms.get('W'));
 	}
 
 	@Test
