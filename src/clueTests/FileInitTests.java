@@ -98,9 +98,14 @@ public class FileInitTests {
 	public void testRoomInitials() {
 		assertEquals('S', board.getRoomCellAt(0, 0).getInitial());
 		assertEquals('H', board.getRoomCellAt(4, 11).getInitial());
+		assertEquals('A', board.getRoomCellAt(1, 23).getInitial());
 		assertEquals('L', board.getRoomCellAt(9, 3).getInitial());
+		assertEquals('C', board.getRoomCellAt(11, 12).getInitial());
+		assertEquals('D', board.getRoomCellAt(12, 23).getInitial());
+		assertEquals('P', board.getRoomCellAt(15, 2).getInitial());
 		assertEquals('K', board.getRoomCellAt(21, 22).getInitial());
 		assertEquals('F', board.getRoomCellAt(21, 0).getInitial());
+		assertEquals('B', board.getRoomCellAt(23, 12).getInitial());
 	}
 
 	// Test that an exception is thrown for a bad config file
