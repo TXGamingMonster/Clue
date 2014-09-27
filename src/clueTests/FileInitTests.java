@@ -82,25 +82,25 @@ public class FileInitTests {
 	{
 		int numDoors = 0;
 		int totalCells = board.getNumColumns() * board.getNumRows();
-		Assert.assertEquals(506, totalCells);
+		Assert.assertEquals(576, totalCells);
 		for (int row=0; row<board.getNumRows(); row++)
 			for (int col=0; col<board.getNumColumns(); col++) {
 				BoardCell cell = board.getCellAt(row, col);
 				if (cell.isDoorway())
 					numDoors++;
 			}
-		Assert.assertEquals(16, numDoors);
+		Assert.assertEquals(17, numDoors);
 	}
 
 	// Test a few room cells to ensure the room initial is
 	// correct.
 	@Test
 	public void testRoomInitials() {
-		assertEquals('C', board.getRoomCellAt(0, 0).getInitial());
-		assertEquals('R', board.getRoomCellAt(4, 8).getInitial());
-		assertEquals('B', board.getRoomCellAt(9, 0).getInitial());
-		assertEquals('O', board.getRoomCellAt(21, 22).getInitial());
-		assertEquals('K', board.getRoomCellAt(21, 0).getInitial());
+		assertEquals('S', board.getRoomCellAt(0, 0).getInitial());
+		assertEquals('H', board.getRoomCellAt(4, 11).getInitial());
+		assertEquals('L', board.getRoomCellAt(9, 3).getInitial());
+		assertEquals('K', board.getRoomCellAt(21, 22).getInitial());
+		assertEquals('F', board.getRoomCellAt(21, 0).getInitial());
 	}
 
 	// Test that an exception is thrown for a bad config file
@@ -130,6 +130,4 @@ public class FileInitTests {
 		game.loadRoomConfig();
 		game.getBoard().loadBoardConfig();
 	}
-}
-
 }
