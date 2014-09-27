@@ -22,7 +22,7 @@ public class BadConfigFormatException extends Exception{
 		super(errorMessage);
 		try {
 		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
-		    out.println(errorMessage);
+		    out.println("Custom message: " + errorMessage);
 		    out.close();
 		} catch (IOException e) {
 		    System.out.println(e.getMessage());
