@@ -141,7 +141,3 @@ public class FileInitTests {
 		game.getBoard().loadBoardConfig();
 	}
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> f2e8367716ca87f30b6d905016b372bfadb58e56
