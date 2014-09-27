@@ -9,7 +9,8 @@ public class ClueGame {
 	public ClueGame(){
 		
 	}
-	public ClueGame(String layout, String legende) {
+	public ClueGame(String layout, String legend) {
+		
 	}
 	public void loadConfigFiles() {
 		
