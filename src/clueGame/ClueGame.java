@@ -13,10 +13,9 @@ public class ClueGame {
 		
 	}
 	public void loadConfigFiles() {
-		
 	}
 	public Board getBoard(){
-		return null;
+		return gameBoard;
 	}
 	public void loadRoomConfig() {
 		// TODO Auto-generated method stub
