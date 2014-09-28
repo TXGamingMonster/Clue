@@ -25,7 +25,7 @@ public class FileInitTests {
 
 	@BeforeClass
 	public static void setUp() {
-		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
+		ClueGame game = new ClueGame("BoardLayout.csv", "ClueLegend.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
 	}
