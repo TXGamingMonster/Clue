@@ -10,26 +10,73 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import clueGame.BadConfigFormatException;//used to throw error in loadBoardConfig
+import clueGame.RoomCell.DoorDirection;
 
 public class Board {
-	private BoardCell[][] layout;
+	private BoardCell[][] layout; //need to add appropriate cell data using boardData, or do this while reading in data instead.
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private int numRows;
 	private int numColumns;
 	private Set<BoardCell> targets;
 	private String clueLegendFile = "ClueFilesUs/ClueLegend.txt";
 	private String clueBoardFile = "ClueFilesUs/BoardLayout.csv";
-	private ArrayList<String[]> boardData = new ArrayList<String[]>();
+	private ArrayList<String[]> boardData = new ArrayList<String[]>(); // the array list holds the rows, while each index of row holds a piece of data corresponding to that row and column.
 	
 	public Board(){
 		try {
 			loadBoardConfig();
+			setLayoutCells();
 		} catch (BadConfigFormatException e) {
 			System.out.println(e);
 			System.out.println("Program will now exit.");
 			System.exit(0);
 		}
 	}
+	private void setLayoutCells() throws BadConfigFormatException{
+		for(int i = 0; i < boardData.size(); i++){//iterate over arrayList (rows)
+			for(int j = 0; j < boardData.get(i).length; j++){//iterate over cols
+				for(Character c : rooms.keySet()){
+					boolean validString = false;
+					if(boardData.get(i)[j].length() > 2){
+						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
+					}
+					String tempC = c.toString();
+					if(c != 'W'){
+						//check if it is a room, or a door of a room.
+						if(boardData.get(i)[j].equals(tempC) || boardData.get(i)[j].equals(tempC + "U") ||boardData.get(i)[j].equals(tempC + "D") ||boardData.get(i)[j].equals(tempC + "L") ||boardData.get(i)[j].equals(tempC + "R")){
+							//assign room cell with direction, (I'm sure there's a better way to do this than checking which direction it is twice.)
+							
+							if(boardData.get(i)[j].equals(tempC + "U")){
+								layout[i][j] = new RoomCell(i,j,DoorDirection.UP);
+							}
+							else if(boardData.get(i)[j].equals(tempC + "D")){
+								layout[i][j] = new RoomCell(i,j,DoorDirection.DOWN);
+							}
+							else if(boardData.get(i)[j].equals(tempC + "L")){
+								layout[i][j] = new RoomCell(i,j,DoorDirection.LEFT);
+							}
+							else if(boardData.get(i)[j].equals(tempC + "R")){
+								layout[i][j] = new RoomCell(i,j,DoorDirection.RIGHT);
+							}
+							else if(boardData.get(i)[j].equals(tempC)){
+								layout[i][j] = new RoomCell(i,j,DoorDirection.NONE);
+							}
+							validString = true;
+						}
+					}
+					//check if it is a walkway
+					else if(boardData.get(i)[j].equals("W") && boardData.get(i).length == 1){
+						validString = true;
+						layout[i][j] = new WalkwayCell(i, j);
+					}
+					if(!validString){
+						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
+					}
+				}
+			}
+		}
+	}
+	
 
 	public void loadBoardConfig() throws BadConfigFormatException {
 		//Load Legend into rooms map

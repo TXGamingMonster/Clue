@@ -7,8 +7,9 @@ public class RoomCell extends BoardCell {
 	private DoorDirection doorDirection;
 	private char roomInitial;
 
-	public RoomCell(int row, int column) {
+	public RoomCell(int row, int column, DoorDirection dir) {
 		super(row, column);
+		this.doorDirection = dir;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -16,9 +17,15 @@ public class RoomCell extends BoardCell {
 	public boolean isRoom() {
 		return true;
 	}
+	
+	@Override
+	public boolean isDoorway() {
+		if(this.doorDirection != DoorDirection.NONE) return true;
+		return super.isDoorway();
+	}
 
 	public String getDoorDirection() {
-		return null;
+		return doorDirection.toString();
 	}
 
 	public char getInitial() {
