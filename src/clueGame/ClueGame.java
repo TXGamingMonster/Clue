@@ -4,15 +4,20 @@ import java.util.Map;
 
 public class ClueGame {
 	private Map<Character, String> rooms;
-	private Board gameBoard = new Board();
+	private Board gameBoard;
 	
-	public ClueGame(){
-		
-	}
 	public ClueGame(String layout, String legend) {
-		
+		gameBoard = new Board(layout, legend);
+		loadConfigFiles();
+		rooms = gameBoard.getRooms();
 	}
+	
 	public void loadConfigFiles() {
+		try {
+			gameBoard.loadBoardConfig();
+		} catch (BadConfigFormatException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	public Board getBoard(){
 		return gameBoard;

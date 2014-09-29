@@ -18,20 +18,15 @@ public class Board {
 	private int numRows;
 	private int numColumns;
 	private Set<BoardCell> targets;
-	private String clueLegendFile = "ClueFilesUs/ClueLegend.txt";
-	private String clueBoardFile = "ClueFilesUs/BoardLayout.csv";
+	private String clueLegendFile;
+	private String clueBoardFile;
 	private ArrayList<String[]> boardData = new ArrayList<String[]>(); // the array list holds the rows, while each index of row holds a piece of data corresponding to that row and column.
 	
-	public Board(){
-		try {
-			loadBoardConfig();
-			setLayoutCells();
-		} catch (BadConfigFormatException e) {
-			System.out.println(e);
-			System.out.println("Program will now exit.");
-			System.exit(0);
-		}
+	public Board(String layout, String legend){
+		clueBoardFile = layout;
+		clueLegendFile = legend;
 	}
+	
 	private void setLayoutCells() throws BadConfigFormatException{
 		for(int i = 0; i < boardData.size(); i++){//iterate over arrayList (rows)
 			for(int j = 0; j < boardData.get(i).length; j++){//iterate over cols
@@ -83,6 +78,8 @@ public class Board {
 		loadLegend();
 		//Done loading legend, now load board
 		loadBoardData();
+		//Finally, set the board up
+		setLayoutCells();
 	}
 	
 	private void loadBoardData() throws BadConfigFormatException{
@@ -121,6 +118,7 @@ public class Board {
 	}
 	
 	private void loadLegend() throws BadConfigFormatException{
+		Map<Character, String> rooms = new HashMap<Character, String>();
 		FileReader clueLegendFileReader = null;
 		Scanner scanner = null;
 		try {
@@ -137,11 +135,12 @@ public class Board {
 				String[] lineSplits = line.split(",");
 				if(lineSplits.length == 2){
 					//the replace all removes spaces as well as non visible characters.
-					this.rooms.put(lineSplits[0].replaceAll("\\s+","").charAt(0), lineSplits[1].replaceAll("\\s+",""));
+					rooms.put(lineSplits[0].replaceAll("\\s+","").charAt(0), lineSplits[1].replaceAll("\\s+",""));
 				}
 				else{
 					throw new BadConfigFormatException(clueLegendFile + " is improperly formatted at line " + clueLegendLinesRead + ".");
-					//if the size does not equal 2, then there is more than one comma. Should we throw BadConfigFormatException here? Probably.
+					//if the size does not equal 2, then there is more than one comma or none at all.
+					//Should we throw BadConfigFormatException here? Probably.
 				}
 				//increment error tracking counter
 				clueLegendLinesRead++;
