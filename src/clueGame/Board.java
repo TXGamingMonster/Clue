@@ -164,7 +164,7 @@ public class Board {
 	}
 
 	public BoardCell getCellAt(int i, int j) {
-		return null;
+		return layout[i][j];
 	}
 
 	public void calcTargets(int i, int j, int k) {

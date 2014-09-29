@@ -29,7 +29,7 @@ public class BoardCell {
 	public boolean isDoorway() {
 		return false;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this.getRow() == ((BoardCell) obj).getRow() && this.getColumn() == ((BoardCell) obj).getColumn())
