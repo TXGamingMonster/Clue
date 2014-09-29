@@ -19,7 +19,7 @@ import clueGame.RoomCell;
 public class FileInitTests {
 
 	private static Board board = new Board();
-	public static final int NUM_ROOMS = 10;
+	public static final int NUM_ROOMS = 11;//including walkway
 	public static final int NUM_ROWS = 24;
 	public static final int NUM_COLUMNS = 24;
 
