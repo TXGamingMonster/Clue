@@ -9,11 +9,11 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import clueGame.BadConfigFormatException;//used to throw error in loadBoardConfig
+import clueGame.BadConfigFormatException;
 import clueGame.RoomCell.DoorDirection;
 
 public class Board {
-	private BoardCell[][] layout; //need to add appropriate cell data using boardData, or do this while reading in data instead.
+	private BoardCell[][] layout;
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private int numRows;
 	private int numColumns;
