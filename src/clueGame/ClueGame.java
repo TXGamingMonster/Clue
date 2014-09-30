@@ -7,7 +7,8 @@ public class ClueGame {
 	private Board gameBoard;
 	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
 	public ClueGame(){
-		
+		gameBoard = new Board("ClueLayout.csv", "ClueLegend.txt");
+		rooms = gameBoard.getRooms();
 	}
 	//The file names have to include the folder name before the file, eclipse looks for the files in the root directory of the project which in our case they aren't.
 	public ClueGame(String layout, String legend) {
