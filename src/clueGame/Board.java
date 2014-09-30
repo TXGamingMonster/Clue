@@ -16,8 +16,10 @@ import clueGame.RoomCell.DoorDirection;
 public class Board {
 	private BoardCell[][] layout;
 	private Map<Character, String> rooms = new HashMap<Character, String>();
+	private Map<BoardCell, LinkedList<BoardCell>> adjacencies;
 	private int numRows;
 	private int numColumns;
+	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	private String clueLegendFile;
 	private String clueBoardFile;
@@ -168,7 +170,11 @@ public class Board {
 	}
 
 	public void calcAdjacencies() {
-
+		for(int i = 0; i < numRows; i++){
+			for(int j = 0; j < numColumns; j++){
+				adjacencies.put(getCellAt(i,j), getAdjList(i,j));
+			}
+		}
 	}
 
 	public LinkedList<BoardCell> getAdjList(int i, int j) {
@@ -208,8 +214,16 @@ public class Board {
 		return layout[i][j];
 	}
 
-	public void calcTargets(int i, int j, int k) {
+	public void calcTargets(int row, int col, int roll) {
 		// TODO Auto-generated method stub
+		BoardCell boardCell = getCellAt(row, col);
+		visited.add(boardCell);
+		if(roll == 0) targets.add(boardCell);
+		for(BoardCell b : adjacencies.get(boardCell)){
+			if(!visited.contains(b) && roll > 0){
+				calcTargets(b, roll-1);
+			}
+		}
 
 	}
 
