@@ -118,7 +118,6 @@ public class Board {
 	}
 	
 	private void loadLegend() throws BadConfigFormatException{
-		Map<Character, String> rooms = new HashMap<Character, String>();
 		FileReader clueLegendFileReader = null;
 		Scanner scanner = null;
 		try {
