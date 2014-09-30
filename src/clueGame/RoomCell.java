@@ -7,9 +7,10 @@ public class RoomCell extends BoardCell {
 	private DoorDirection doorDirection;
 	private char roomInitial;
 
-	public RoomCell(int row, int column, DoorDirection dir) {
+	public RoomCell(int row, int column, DoorDirection dir, char initial) {
 		super(row, column);
 		this.doorDirection = dir;
+		this.roomInitial = initial;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -30,7 +31,7 @@ public class RoomCell extends BoardCell {
 
 	public char getInitial() {
 		//return null char
-		return '\u0000';
+		return roomInitial;
 	}
 
 }

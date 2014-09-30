@@ -12,7 +12,6 @@ public class ClueGame {
 	//The file names have to include the folder name before the file, eclipse looks for the files in the root directory of the project which in our case they aren't.
 	public ClueGame(String layout, String legend) {
 		gameBoard = new Board(layout, legend);
-		loadConfigFiles();
 		rooms = gameBoard.getRooms();
 	}
 	

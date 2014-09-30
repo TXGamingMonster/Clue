@@ -42,19 +42,19 @@ public class Board {
 							//assign room cell with direction, (I'm sure there's a better way to do this than checking which direction it is twice.)
 							
 							if(boardData.get(i)[j].equals(tempC + "U")){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.UP);
+								layout[i][j] = new RoomCell(i,j,DoorDirection.UP, boardData.get(i)[j].charAt(0));
 							}
 							else if(boardData.get(i)[j].equals(tempC + "D")){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.DOWN);
+								layout[i][j] = new RoomCell(i,j,DoorDirection.DOWN, boardData.get(i)[j].charAt(0));
 							}
 							else if(boardData.get(i)[j].equals(tempC + "L")){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.LEFT);
+								layout[i][j] = new RoomCell(i,j,DoorDirection.LEFT, boardData.get(i)[j].charAt(0));
 							}
 							else if(boardData.get(i)[j].equals(tempC + "R")){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.RIGHT);
+								layout[i][j] = new RoomCell(i,j,DoorDirection.RIGHT, boardData.get(i)[j].charAt(0));
 							}
 							else if(boardData.get(i)[j].equals(tempC)){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.NONE);
+								layout[i][j] = new RoomCell(i,j,DoorDirection.NONE, boardData.get(i)[j].charAt(0));
 							}
 							validString = true;
 						}
