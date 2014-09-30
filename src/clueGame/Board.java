@@ -33,7 +33,7 @@ public class Board {
 			for(int j = 0; j < boardData.get(i).length; j++){//iterate over cols
 				boolean validString = false;
 				for(Character c : rooms.keySet()){
-					
+					if(validString == true) break;
 					if(boardData.get(i)[j].length() > 2){
 						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
 					}
@@ -41,7 +41,7 @@ public class Board {
 					String tempC = c.toString();
 					if(c != 'W'){
 						//check if it is a room, or a door of a room.
-						if(boardData.get(i)[j].equals(tempC) || boardData.get(i)[j].equals(tempC + "U") ||boardData.get(i)[j].equals(tempC + "D") ||boardData.get(i)[j].equals(tempC + "L") ||boardData.get(i)[j].equals(tempC + "R")){
+						if(boardData.get(i)[j].equals(tempC) || boardData.get(i)[j].equals(tempC + "U") ||boardData.get(i)[j].equals(tempC + "D") ||boardData.get(i)[j].equals(tempC + "L") ||boardData.get(i)[j].equals(tempC + "R")||boardData.get(i)[j].equals(tempC + "N")){
 							//assign room cell with direction, (I'm sure there's a better way to do this than checking which direction it is twice.)
 							
 							if(boardData.get(i)[j].equals(tempC + "U")){
@@ -60,6 +60,10 @@ public class Board {
 								toAdd = new RoomCell(i,j,DoorDirection.RIGHT, boardData.get(i)[j].charAt(0));
 								layout[i][j] = toAdd;
 							}
+							else if(boardData.get(i)[j].equals(tempC + "N")){
+								toAdd = new RoomCell(i,j,DoorDirection.NONE, boardData.get(i)[j].charAt(0));
+								layout[i][j] = toAdd;
+							}
 							else if(boardData.get(i)[j].equals(tempC)){
 								toAdd = new RoomCell(i,j,DoorDirection.NONE, boardData.get(i)[j].charAt(0));
 								layout[i][j] = toAdd;
@@ -68,7 +72,7 @@ public class Board {
 						}
 					}
 					//check if it is a walkway
-					else if(boardData.get(i)[j].equals("W") && boardData.get(i).length == 1){
+					else if(boardData.get(i)[j].equals("W") && boardData.get(i)[j].length() == 1){
 						validString = true;
 						toAdd = new WalkwayCell(i, j);
 						layout[i][j] = toAdd;

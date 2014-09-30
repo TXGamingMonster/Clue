@@ -25,8 +25,8 @@ public class RoomCell extends BoardCell {
 		return super.isDoorway();
 	}
 
-	public String getDoorDirection() {
-		return doorDirection.toString();
+	public DoorDirection getDoorDirection() {
+		return doorDirection;
 	}
 
 	public char getInitial() {
