@@ -35,6 +35,7 @@ public class Board {
 					if(boardData.get(i)[j].length() > 2){
 						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
 					}
+					BoardCell toAdd = null;
 					String tempC = c.toString();
 					if(c != 'W'){
 						//check if it is a room, or a door of a room.
@@ -42,19 +43,24 @@ public class Board {
 							//assign room cell with direction, (I'm sure there's a better way to do this than checking which direction it is twice.)
 							
 							if(boardData.get(i)[j].equals(tempC + "U")){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.UP, boardData.get(i)[j].charAt(0));
+								toAdd = new RoomCell(i,j,DoorDirection.UP, boardData.get(i)[j].charAt(0));
+								layout[i][j] = toAdd;
 							}
 							else if(boardData.get(i)[j].equals(tempC + "D")){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.DOWN, boardData.get(i)[j].charAt(0));
+								toAdd = new RoomCell(i,j,DoorDirection.DOWN, boardData.get(i)[j].charAt(0));
+								layout[i][j] = toAdd;
 							}
 							else if(boardData.get(i)[j].equals(tempC + "L")){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.LEFT, boardData.get(i)[j].charAt(0));
+								toAdd = new RoomCell(i,j,DoorDirection.LEFT, boardData.get(i)[j].charAt(0));
+								layout[i][j] = toAdd;
 							}
 							else if(boardData.get(i)[j].equals(tempC + "R")){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.RIGHT, boardData.get(i)[j].charAt(0));
+								toAdd = new RoomCell(i,j,DoorDirection.RIGHT, boardData.get(i)[j].charAt(0));
+								layout[i][j] = toAdd;
 							}
 							else if(boardData.get(i)[j].equals(tempC)){
-								layout[i][j] = new RoomCell(i,j,DoorDirection.NONE, boardData.get(i)[j].charAt(0));
+								toAdd = new RoomCell(i,j,DoorDirection.NONE, boardData.get(i)[j].charAt(0));
+								layout[i][j] = toAdd;
 							}
 							validString = true;
 						}
@@ -62,7 +68,8 @@ public class Board {
 					//check if it is a walkway
 					else if(boardData.get(i)[j].equals("W") && boardData.get(i).length == 1){
 						validString = true;
-						layout[i][j] = new WalkwayCell(i, j);
+						toAdd = new WalkwayCell(i, j);
+						layout[i][j] = toAdd;
 					}
 					if(!validString){
 						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
@@ -178,7 +185,7 @@ public class Board {
 		return rooms;
 	}
 	public RoomCell getRoomCellAt(int row, int col){
-		return null;
+		return (RoomCell) layout[row][col];
 	}
 
 	public int getNumRows(){
