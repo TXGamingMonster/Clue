@@ -107,7 +107,7 @@ public class Board {
 		}
 		finally{
 			//each String[] in boardData is an array of the column data for the row at that index
-			while(scanner.hasNext()){
+			while(scanner.hasNextLine()){
 				//the file should be comma delimited, so each row data is the line read in split by a comma, while the row is simply the line read in.
 				String[] toAdd = scanner.nextLine().split(",");
 				if(numColumns == 0){
