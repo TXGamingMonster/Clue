@@ -31,8 +31,9 @@ public class Board {
 		layout = new BoardCell[numRows][numColumns];
 		for(int i = 0; i < boardData.size(); i++){//iterate over arrayList (rows)
 			for(int j = 0; j < boardData.get(i).length; j++){//iterate over cols
+				boolean validString = false;
 				for(Character c : rooms.keySet()){
-					boolean validString = false;
+					
 					if(boardData.get(i)[j].length() > 2){
 						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
 					}
@@ -71,10 +72,10 @@ public class Board {
 						validString = true;
 						toAdd = new WalkwayCell(i, j);
 						layout[i][j] = toAdd;
-					}/*
-					if(!validString){
-						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
-					}*/
+					}
+				}
+				if(!validString){
+					throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
 				}
 			}
 		}
