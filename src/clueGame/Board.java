@@ -133,8 +133,8 @@ public class Board {
 				String line = scanner.nextLine();
 				String[] lineSplits = line.split(",");
 				if(lineSplits.length == 2){
-					//the replace all removes spaces as well as non visible characters.
-					rooms.put(lineSplits[0].replaceAll("\\s+","").charAt(0), lineSplits[1].replaceAll("\\s+",""));
+					if(lineSplits[1].charAt(0) == ' ') lineSplits[1] = lineSplits[1].substring(1);
+					rooms.put(lineSplits[0].charAt(0), lineSplits[1]);
 				}
 				else{
 					throw new BadConfigFormatException(clueLegendFile + " is improperly formatted at line " + clueLegendLinesRead + ".");
