@@ -5,6 +5,10 @@ import java.util.Map;
 public class ClueGame {
 	private Map<Character, String> rooms;
 	private Board gameBoard;
+	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
+	public ClueGame(){
+		
+	}
 	
 	public ClueGame(String layout, String legend) {
 		gameBoard = new Board(layout, legend);
