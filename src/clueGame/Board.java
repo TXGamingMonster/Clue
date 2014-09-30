@@ -15,6 +15,7 @@ import clueGame.RoomCell.DoorDirection;
 public class Board {
 	private BoardCell[][] layout;
 	private Map<Character, String> rooms = new HashMap<Character, String>();
+	private Map<BoardCell, LinkedList<BoardCell>> adjacencies;
 	private int numRows;
 	private int numColumns;
 	private Set<BoardCell> visited;
@@ -168,7 +169,11 @@ public class Board {
 	}
 
 	public void calcAdjacencies() {
-
+		for(int i = 0; i < numRows; i++){
+			for(int j = 0; j < numColumns; j++){
+				adjacencies.put(getCellAt(i,j), getAdjList(i,j));
+			}
+		}
 	}
 
 	public LinkedList<BoardCell> getAdjList(int i, int j) {
