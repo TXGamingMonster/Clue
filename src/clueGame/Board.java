@@ -16,7 +16,7 @@ import clueGame.RoomCell.DoorDirection;
 public class Board {
 	private BoardCell[][] layout;
 	private Map<Character, String> rooms = new HashMap<Character, String>();
-	private Map<BoardCell, LinkedList<BoardCell>> adjacencies;
+	private Map<BoardCell, LinkedList<BoardCell>> adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	private int numRows;
 	private int numColumns;
 	private Set<BoardCell> visited;
@@ -221,7 +221,7 @@ public class Board {
 		if(roll == 0) targets.add(boardCell);
 		for(BoardCell b : adjacencies.get(boardCell)){
 			if(!visited.contains(b) && roll > 0){
-				calcTargets(b, roll-1);
+				calcTargets(row, col, roll-1);
 			}
 		}
 
