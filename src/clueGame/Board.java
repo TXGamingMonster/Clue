@@ -17,6 +17,7 @@ public class Board {
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private int numRows;
 	private int numColumns;
+	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	private String clueLegendFile;
 	private String clueBoardFile;
@@ -178,8 +179,16 @@ public class Board {
 		return layout[i][j];
 	}
 
-	public void calcTargets(int i, int j, int k) {
+	public void calcTargets(int row, int col, int roll) {
 		// TODO Auto-generated method stub
+		BoardCell boardCell = getCellAt(row, col);
+		visited.add(boardCell);
+		if(roll == 0) targets.add(boardCell);
+		for(BoardCell b : adjacencies.get(boardCell)){
+			if(!visited.contains(b) && roll > 0){
+				calcTargets(b, roll-1);
+			}
+		}
 
 	}
 
