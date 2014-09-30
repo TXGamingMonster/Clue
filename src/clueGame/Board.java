@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+
 import clueGame.BadConfigFormatException;
 import clueGame.RoomCell.DoorDirection;
 
@@ -21,12 +22,12 @@ public class Board {
 	private String clueLegendFile;
 	private String clueBoardFile;
 	private ArrayList<String[]> boardData = new ArrayList<String[]>(); // the array list holds the rows, while each index of row holds a piece of data corresponding to that row and column.
-	
+
 	public Board(String layout, String legend){
 		clueBoardFile = layout;
 		clueLegendFile = legend;
 	}
-	
+
 	private void setLayoutCells() throws BadConfigFormatException{
 		layout = new BoardCell[numRows][numColumns];
 		for(int i = 0; i < boardData.size(); i++){//iterate over arrayList (rows)
@@ -43,7 +44,7 @@ public class Board {
 						//check if it is a room, or a door of a room.
 						if(boardData.get(i)[j].equals(tempC) || boardData.get(i)[j].equals(tempC + "U") ||boardData.get(i)[j].equals(tempC + "D") ||boardData.get(i)[j].equals(tempC + "L") ||boardData.get(i)[j].equals(tempC + "R")||boardData.get(i)[j].equals(tempC + "N")){
 							//assign room cell with direction, (I'm sure there's a better way to do this than checking which direction it is twice.)
-							
+
 							if(boardData.get(i)[j].equals(tempC + "U")){
 								toAdd = new RoomCell(i,j,DoorDirection.UP, boardData.get(i)[j].charAt(0));
 								layout[i][j] = toAdd;
@@ -84,7 +85,7 @@ public class Board {
 			}
 		}
 	}
-	
+
 
 	public void loadBoardConfig() throws BadConfigFormatException {
 		//Load Legend into rooms map
@@ -94,7 +95,7 @@ public class Board {
 		//Finally, set the board up
 		setLayoutCells();
 	}
-	
+
 	private void loadBoardData() throws BadConfigFormatException{
 		FileReader clueBoardFileReader = null;
 		Scanner scanner = null;
@@ -129,7 +130,7 @@ public class Board {
 			System.exit(0);
 		}
 	}
-	
+
 	private void loadLegend() throws BadConfigFormatException{
 		FileReader clueLegendFileReader = null;
 		Scanner scanner = null;
@@ -171,7 +172,36 @@ public class Board {
 	}
 
 	public LinkedList<BoardCell> getAdjList(int i, int j) {
-		return null;
+		LinkedList<BoardCell> adjacentCells = new LinkedList<BoardCell>();
+		//make sure we aren't in a room
+		if (layout[i][j].isRoom() && !layout[i][j].isDoorway()) {
+			return adjacentCells;
+		}
+		//check above cell
+		if (i > 0) {
+			if (layout[i-1][j].isWalkway() || (layout[i-1][j].isDoorway() && layout[i-1][j].getDoorDirection() == DoorDirection.DOWN)) {
+				adjacentCells.add(layout[i-1][j]);
+			}
+		}
+		//check below cell
+		if (i < numRows-1) {
+			if (layout[i+1][j].isWalkway() || (layout[i+1][j].isDoorway() && layout[i+1][j].getDoorDirection() == DoorDirection.UP)) {
+				adjacentCells.add(layout[i+1][j]);
+			}
+		}
+		//check left cell
+		if (j > 0) {
+			if (layout[i][j-1].isWalkway() || (layout[i][j-1].isDoorway() && layout[i][j-1].getDoorDirection() == DoorDirection.RIGHT)) {
+				adjacentCells.add(layout[i][j-1]);
+			}
+		}
+		//check right cell
+		if (j < numColumns-1) {
+			if (layout[i][j+1].isWalkway() || (layout[i][j+1].isDoorway() && layout[i][j+1].getDoorDirection() == DoorDirection.LEFT)) {
+				adjacentCells.add(layout[i][j+1]);
+			}
+		}
+		return adjacentCells;
 	}
 
 	public BoardCell getCellAt(int i, int j) {
