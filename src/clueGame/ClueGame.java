@@ -23,7 +23,7 @@ public class ClueGame {
 		return gameBoard;
 	}
 	public void loadRoomConfig() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
