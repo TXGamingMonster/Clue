@@ -28,6 +28,7 @@ public class Board {
 	}
 	
 	private void setLayoutCells() throws BadConfigFormatException{
+		layout = new BoardCell[numRows][numColumns];
 		for(int i = 0; i < boardData.size(); i++){//iterate over arrayList (rows)
 			for(int j = 0; j < boardData.get(i).length; j++){//iterate over cols
 				for(Character c : rooms.keySet()){
@@ -70,10 +71,10 @@ public class Board {
 						validString = true;
 						toAdd = new WalkwayCell(i, j);
 						layout[i][j] = toAdd;
-					}
+					}/*
 					if(!validString){
 						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
-					}
+					}*/
 				}
 			}
 		}
