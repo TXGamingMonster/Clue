@@ -32,13 +32,15 @@ public class Board {
 	public void loadBoardConfig() throws BadConfigFormatException {
 		//Load Legend into rooms map
 		loadLegend();
-		//Done loading legend, now load board
+		//Done loading legend, now load board into layout.
 		loadBoardData();
 	}
 
 	private void loadBoardData() throws BadConfigFormatException{
+		//initialize FileReader and Scanner
 		FileReader clueBoardFileReader = null;
 		Scanner scanner = null;
+		//Try to open the file and set the scanner, throw an exception.
 		try {
 			clueBoardFileReader = new FileReader(clueBoardFile);
 			scanner = new Scanner(clueBoardFileReader);
@@ -47,39 +49,49 @@ public class Board {
 			System.exit(0);
 		}
 		finally{
-			int rows = 0;
-			int cols = 0;
-			ArrayList<String[]> tempData = new ArrayList<String[]>();
+			int rows = 0;//used to keep track of files read in.
+			int cols = 0;//used to keep track of columns in current row.
+			ArrayList<String[]> tempData = new ArrayList<String[]>(); //used to keep track of rows, and the columns within each row.
 			while(scanner.hasNextLine()){
 				rows++;
+				//move the string in each column to an array.
 				String[] toAdd = scanner.nextLine().split(",");
+				//if columns hasn't been set, set it to current number of columns in this row.
 				if(cols == 0){
-					//set column length equal to the first row that contains column data
 					cols = toAdd.length;
 				}
-				if(cols != toAdd.length){
+				//otherwise check to see if the columns in the first row equals that of the current row. If not throw exception.
+				else if(cols != toAdd.length){
 					throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at row " + rows + ". (Number of column mismatch)");
 				}
+				//add column data for this row to the arrayList containing our rows
 				tempData.add(toAdd);
+				//update the number of rows
 				numRows = rows;
 			}
 			numColumns = cols;
+			//set layout equal to the number of rows and columns just read in.
 			layout = new BoardCell[numRows][numColumns];
-			//each String[] in boardData is an array of the column data for the row at that index
 			rows = 0;
+			//iterate through rows of data
 			for(String[] sa : tempData){
-				//the file should be comma delimited, so each row data is the line read in split by a comma, while the row is simply the line read in.
 				String[] toAdd = sa;
+				//reset cols for iteration
 				cols = 0;
+				//iterate through the columns in the current row
 				for(String s : toAdd){
+					//This is used to check if the string is a key from rooms, or a key from rooms concatenated with a direction.
+					//If it is not, then an exception is thrown. if if(!validString) is checked.
 					boolean validString = false;
+					//iterate through the chars read in from the legend. 
 					for(Character c : rooms.keySet()){
+						//if the string is valid, don't bother comparing to the rest of the chars.
 						if(validString)break;
-						//if(s.length() > 2){
-						//	throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (rows) + "," + (cols) + "). (cell label contains unexpected character(s))");
-						//}
+						//make a new boardCell to add into the current cell of layout.
 						BoardCell newCell;
+						//comvert the character to a string for comparison.
 						String tempC = c.toString();
+						//if this is not a walkway, check if it's a room. Also check each direction in case it's a door.
 						if(c != 'W'){
 							if(s.equals(tempC + "U")){
 								newCell = new RoomCell(rows,cols, RoomCell.DoorDirection.UP, s.charAt(0));
@@ -112,6 +124,7 @@ public class Board {
 								validString = true;
 							}
 						}
+						//otherwise, check if it is a single char 'W'.
 						else if(s.equals("W") && s.length() == 1){
 							validString = true;
 							newCell = new WalkwayCell(rows, cols);
@@ -121,12 +134,15 @@ public class Board {
 					if(!validString){
 						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (rows) + "," + (cols) + "). (cell label contains unexpected character(s))");
 					}
+					//iterate the column so we know where to add to layout
 					cols++;
 				}
+				//iterate rows so we know where to add to layout.
 				rows++;
 			}
 			
 		}
+		//close the file reader. If we can't throw an exception.
 		try {
 			clueBoardFileReader.close();
 		} catch (IOException e) {
@@ -136,8 +152,10 @@ public class Board {
 	}
 
 	private void loadLegend() throws BadConfigFormatException{
+		//initialize file reader and scanner
 		FileReader clueLegendFileReader = null;
 		Scanner scanner = null;
+		//try to open the legend, throw exception if it can't be
 		try {
 			clueLegendFileReader = new FileReader(clueLegendFile);
 			scanner = new Scanner(clueLegendFileReader);
@@ -148,20 +166,23 @@ public class Board {
 		finally{
 			int clueLegendLinesRead = 1;//keep a counter for throwing errors for specific lines.
 			while(scanner.hasNext()){
+				//get next line and break it into two sections
 				String line = scanner.nextLine();
 				String[] lineSplits = line.split(",");
+				//if there are more than two sections, it's not formatted properly. Throw an exception
 				if(lineSplits.length == 2){
+					//otherwise remove the space from the room of the name.
 					if(lineSplits[1].charAt(0) == ' ') lineSplits[1] = lineSplits[1].substring(1);
+					//and then map the room names value to the char from the legend.
 					rooms.put(lineSplits[0].charAt(0), lineSplits[1]);
 				}
 				else{
 					throw new BadConfigFormatException(clueLegendFile + " is improperly formatted at line " + clueLegendLinesRead + ".");
-					//if the size does not equal 2, then there is more than one comma or none at all.
-					//Should we throw BadConfigFormatException here? Probably.
 				}
 				//increment error tracking counter
 				clueLegendLinesRead++;
 			}
+			//try to close the legend, if it can't be throw exception.
 			try {
 				clueLegendFileReader.close();
 			} catch (IOException e) {
