@@ -204,8 +204,22 @@ public class Board {
 	public LinkedList<BoardCell> getAdjList(int i, int j) {
 		LinkedList<BoardCell> adjacentCells = new LinkedList<BoardCell>();
 		//make sure we aren't in a room
-		if (layout[i][j].isRoom() && !layout[i][j].isDoorway()) {
-			return adjacentCells;
+		if (layout[i][j].isRoom()) {
+			//can't move around in a room
+			if (!layout[i][j].isDoorway())
+				return adjacentCells;
+			//can only move to the space directly outside a door if you're at a door
+			else {
+				if (layout[i][j].getDoorDirection() == RoomCell.DoorDirection.DOWN)
+					adjacentCells.add(layout[i+1][j]);
+				else if (layout[i][j].getDoorDirection() == RoomCell.DoorDirection.UP)
+					adjacentCells.add(layout[i-1][j]);
+				else if (layout[i][j].getDoorDirection() == RoomCell.DoorDirection.RIGHT)
+					adjacentCells.add(layout[i][j+1]);
+				else if (layout[i][j].getDoorDirection() == RoomCell.DoorDirection.LEFT)
+					adjacentCells.add(layout[i][j-1]);
+				return adjacentCells;
+			}
 		}
 		//check above cell
 		if (i > 0 && (layout[i-1][j].isWalkway() || ((layout[i-1][j].isDoorway() && layout[i-1][j].getDoorDirection() ==  RoomCell.DoorDirection.DOWN)))) {
@@ -236,12 +250,13 @@ public class Board {
 		visited = new HashSet<BoardCell>();
 		BoardCell cell = getCellAt(row, col);
 		recursiveCalcTargets(cell, roll);
+		targets.remove(cell);
 	}
 
 	public void recursiveCalcTargets(BoardCell cell, int roll){
 		cell = getCellAt(cell.getRow(), cell.getColumn());
 		visited.add(cell);
-		if(roll == 0){
+		if(roll == 0 || cell.isDoorway()){
 			targets.add(cell);
 		}
 		for(BoardCell b : adjacencies.get(cell)){

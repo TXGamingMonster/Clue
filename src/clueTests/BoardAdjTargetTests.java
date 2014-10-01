@@ -214,7 +214,7 @@ public class BoardAdjTargetTests {
 		targets= board.getTargets();
 		Assert.assertEquals(4, targets.size());//changed to 4 with addition of 2nd cell
 		Assert.assertTrue(targets.contains(board.getCellAt(5, 2)));
-		Assert.assertTrue(targets.contains(board.getCellAt(5, 0)));//was not here before.
+		Assert.assertTrue(targets.contains(board.getCellAt(4, 1)));//was not here before.
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 3)));	
 		Assert.assertTrue(targets.contains(board.getCellAt(5, 4)));
 	}	
@@ -228,7 +228,7 @@ public class BoardAdjTargetTests {
 		Set<BoardCell> targets= board.getTargets();
 		Assert.assertEquals(6, targets.size());//changed to 6 with addition of cell 2
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 3)));
-		Assert.assertTrue(targets.contains(board.getCellAt(5, 3)));//added
+		Assert.assertTrue(targets.contains(board.getCellAt(5, 2)));//added
 		Assert.assertTrue(targets.contains(board.getCellAt(5, 4)));	
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 5)));
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 1)));	
@@ -264,10 +264,14 @@ public class BoardAdjTargetTests {
 	{
 		board.calcTargets(8, 7, 3);
 		Set<BoardCell> targets= board.getTargets();
-		Assert.assertEquals(8, targets.size());
+		Assert.assertEquals(11, targets.size());
 		// directly up and down
 		Assert.assertTrue(targets.contains(board.getCellAt(5, 7)));
+		Assert.assertTrue(targets.contains(board.getCellAt(7, 7)));
+		Assert.assertTrue(targets.contains(board.getCellAt(9, 7)));
 		Assert.assertTrue(targets.contains(board.getCellAt(11, 7)));
+		// directly right
+		Assert.assertTrue(targets.contains(board.getCellAt(8, 8)));
 		// right one then up two
 		Assert.assertTrue(targets.contains(board.getCellAt(6, 8)));
 		// up one then right two
