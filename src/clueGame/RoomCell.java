@@ -33,5 +33,4 @@ public class RoomCell extends BoardCell {
 		//return null char
 		return roomInitial;
 	}
-
 }

@@ -11,12 +11,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import clueGame.BadConfigFormatException;
-import clueGame.RoomCell.DoorDirection;
-
 public class Board {
 	private BoardCell[][] layout;
-	private ArrayList<String[]> boardData;
 	private Map<Character, String> rooms;
 	private Map<BoardCell, LinkedList<BoardCell>> adjacencies;
 	private Set<BoardCell> visited;
@@ -29,77 +25,15 @@ public class Board {
 	public Board(String layout, String legend){
 		clueBoardFile = layout;
 		clueLegendFile = legend;
-		boardData = new ArrayList<String[]>();
 		rooms = new HashMap<Character, String>();
 		adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	}
-
-	private void setLayoutCells() throws BadConfigFormatException{
-		layout = new BoardCell[numRows][numColumns];
-		for(int i = 0; i < boardData.size(); i++){//iterate over arrayList (rows)
-			for(int j = 0; j < boardData.get(i).length; j++){//iterate over cols
-				boolean validString = false;
-				for(Character c : rooms.keySet()){
-					if(validString == true) break;
-					if(boardData.get(i)[j].length() > 2){
-						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
-					}
-					BoardCell toAdd = null;
-					String tempC = c.toString();
-					if(c != 'W'){
-						//check if it is a room, or a door of a room.
-						if(boardData.get(i)[j].equals(tempC) || boardData.get(i)[j].equals(tempC + "U") ||boardData.get(i)[j].equals(tempC + "D") ||boardData.get(i)[j].equals(tempC + "L") ||boardData.get(i)[j].equals(tempC + "R")||boardData.get(i)[j].equals(tempC + "N")){
-							//assign room cell with direction, (I'm sure there's a better way to do this than checking which direction it is twice.)
-
-							if(boardData.get(i)[j].equals(tempC + "U")){
-								toAdd = new RoomCell(i,j,DoorDirection.UP, boardData.get(i)[j].charAt(0));
-								layout[i][j] = toAdd;
-							}
-							else if(boardData.get(i)[j].equals(tempC + "D")){
-								toAdd = new RoomCell(i,j,DoorDirection.DOWN, boardData.get(i)[j].charAt(0));
-								layout[i][j] = toAdd;
-							}
-							else if(boardData.get(i)[j].equals(tempC + "L")){
-								toAdd = new RoomCell(i,j,DoorDirection.LEFT, boardData.get(i)[j].charAt(0));
-								layout[i][j] = toAdd;
-							}
-							else if(boardData.get(i)[j].equals(tempC + "R")){
-								toAdd = new RoomCell(i,j,DoorDirection.RIGHT, boardData.get(i)[j].charAt(0));
-								layout[i][j] = toAdd;
-							}
-							else if(boardData.get(i)[j].equals(tempC + "N")){
-								toAdd = new RoomCell(i,j,DoorDirection.NONE, boardData.get(i)[j].charAt(0));
-								layout[i][j] = toAdd;
-							}
-							else if(boardData.get(i)[j].equals(tempC)){
-								toAdd = new RoomCell(i,j,DoorDirection.NONE, boardData.get(i)[j].charAt(0));
-								layout[i][j] = toAdd;
-							}
-							validString = true;
-						}
-					}
-					//check if it is a walkway
-					else if(boardData.get(i)[j].equals("W") && boardData.get(i)[j].length() == 1){
-						validString = true;
-						toAdd = new WalkwayCell(i, j);
-						layout[i][j] = toAdd;
-					}
-				}
-				if(!validString){
-					throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (i+1) + "," + (j+1) + ").");
-				}
-			}
-		}
-	}
-
 
 	public void loadBoardConfig() throws BadConfigFormatException {
 		//Load Legend into rooms map
 		loadLegend();
 		//Done loading legend, now load board
 		loadBoardData();
-		//Finally, set the board up
-		setLayoutCells();
 	}
 
 	private void loadBoardData() throws BadConfigFormatException{
@@ -113,21 +47,85 @@ public class Board {
 			System.exit(0);
 		}
 		finally{
-			//each String[] in boardData is an array of the column data for the row at that index
+			int rows = 0;
+			int cols = 0;
+			ArrayList<String[]> tempData = new ArrayList<String[]>();
 			while(scanner.hasNextLine()){
-				//the file should be comma delimited, so each row data is the line read in split by a comma, while the row is simply the line read in.
+				rows++;
 				String[] toAdd = scanner.nextLine().split(",");
-				if(numColumns == 0){
+				if(cols == 0){
 					//set column length equal to the first row that contains column data
-					numColumns = toAdd.length;
+					cols = toAdd.length;
 				}
-				if(numColumns != toAdd.length){
-					throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at row " + numRows+1 + ".");
+				if(cols != toAdd.length){
+					throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at row " + rows + ". (Number of column mismatch)");
 				}
-				//not sure how we should check if the row[column] data is valid.
-				boardData.add(toAdd);
-				numRows = boardData.size();//update number of rows that have been read in 
+				tempData.add(toAdd);
+				numRows = rows;
 			}
+			numColumns = cols;
+			layout = new BoardCell[numRows][numColumns];
+			//each String[] in boardData is an array of the column data for the row at that index
+			rows = 0;
+			for(String[] sa : tempData){
+				//the file should be comma delimited, so each row data is the line read in split by a comma, while the row is simply the line read in.
+				String[] toAdd = sa;
+				cols = 0;
+				for(String s : toAdd){
+					boolean validString = false;
+					for(Character c : rooms.keySet()){
+						if(validString)break;
+						//if(s.length() > 2){
+						//	throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (rows) + "," + (cols) + "). (cell label contains unexpected character(s))");
+						//}
+						BoardCell newCell;
+						String tempC = c.toString();
+						if(c != 'W'){
+							if(s.equals(tempC + "U")){
+								newCell = new RoomCell(rows,cols, RoomCell.DoorDirection.UP, s.charAt(0));
+								layout[rows][cols] = newCell;
+								validString = true;
+							}
+							else if(s.equals(tempC + "D")){
+								newCell = new RoomCell(rows, cols, RoomCell.DoorDirection.DOWN, s.charAt(0));
+								layout[rows][cols] = newCell;
+								validString = true;
+							}
+							else if(s.equals(tempC + "L")){
+								newCell = new RoomCell(rows, cols, RoomCell.DoorDirection.LEFT, s.charAt(0));
+								layout[rows][cols] = newCell;
+								validString = true;
+							}
+							else if(s.equals(tempC + "R")){
+								newCell = new RoomCell(rows, cols, RoomCell.DoorDirection.RIGHT, s.charAt(0));
+								layout[rows][cols] = newCell;
+								validString = true;
+							}
+							else if(s.equals(tempC + "N")){
+								newCell = new RoomCell(rows, cols, RoomCell.DoorDirection.NONE, s.charAt(0));
+								layout[rows][cols] = newCell;
+								validString = true;
+							}
+							else if(s.equals(tempC)){
+								newCell = new RoomCell(rows, cols, RoomCell.DoorDirection.NONE, s.charAt(0));
+								layout[rows][cols] = newCell;
+								validString = true;
+							}
+						}
+						else if(s.equals("W") && s.length() == 1){
+							validString = true;
+							newCell = new WalkwayCell(rows, cols);
+							layout[rows][cols] = newCell;
+						}
+					}
+					if(!validString){
+						throw new BadConfigFormatException(clueBoardFile + " is improperly formatted at position (" + (rows) + "," + (cols) + "). (cell label contains unexpected character(s))");
+					}
+					cols++;
+				}
+				rows++;
+			}
+			
 		}
 		try {
 			clueBoardFileReader.close();
@@ -176,7 +174,8 @@ public class Board {
 	public void calcAdjacencies() {
 		for(int i = 0; i < numRows; i++){
 			for(int j = 0; j < numColumns; j++){
-				adjacencies.put(getCellAt(i,j), getAdjList(i,j));
+				BoardCell cell = getCellAt(i,j);
+				adjacencies.put(cell, getAdjList(i,j));
 			}
 		}
 	}
@@ -188,19 +187,19 @@ public class Board {
 			return adjacentCells;
 		}
 		//check above cell
-		if (i > 0 && (layout[i-1][j].isWalkway() || ((layout[i-1][j].isDoorway() && layout[i-1][j].getDoorDirection() == DoorDirection.DOWN)))) {
+		if (i > 0 && (layout[i-1][j].isWalkway() || ((layout[i-1][j].isDoorway() && layout[i-1][j].getDoorDirection() ==  RoomCell.DoorDirection.DOWN)))) {
 			adjacentCells.add(layout[i-1][j]);
 		}
 		//check below cell
-		if (i< numRows-1 && (layout[i+1][j].isWalkway() || ((layout[i+1][j].isDoorway() && layout[i+1][j].getDoorDirection() == DoorDirection.UP)))) {
+		if (i< numRows-1 && (layout[i+1][j].isWalkway() || ((layout[i+1][j].isDoorway() && layout[i+1][j].getDoorDirection() ==  RoomCell.DoorDirection.UP)))) {
 			adjacentCells.add(layout[i+1][j]);
 		}
 		//check left cell
-		if (j > 0 && (layout[i][j-1].isWalkway() || ((layout[i][j-1].isDoorway() && layout[i][j-1].getDoorDirection() == DoorDirection.RIGHT)))) {
+		if (j > 0 && (layout[i][j-1].isWalkway() || ((layout[i][j-1].isDoorway() && layout[i][j-1].getDoorDirection() ==  RoomCell.DoorDirection.RIGHT)))) {
 			adjacentCells.add(layout[i][j-1]);
 		}
 		//check right cell
-		if (j < numColumns-1 && (layout[i][j+1].isWalkway() || ((layout[i][j+1].isDoorway() && layout[i][j+1].getDoorDirection() == DoorDirection.LEFT)))) {
+		if (j < numColumns-1 && (layout[i][j+1].isWalkway() || ((layout[i][j+1].isDoorway() && layout[i][j+1].getDoorDirection() ==  RoomCell.DoorDirection.LEFT)))) {
 			adjacentCells.add(layout[i][j+1]);
 		}
 		return adjacentCells;
@@ -227,6 +226,7 @@ public class Board {
 		for(BoardCell b : adjacencies.get(cell)){
 			if(!visited.contains(b) && roll > 0){
 				recursiveCalcTargets(b, roll-1);
+				visited.remove(b);
 			}
 		}
 	}

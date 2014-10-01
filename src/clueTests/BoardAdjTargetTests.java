@@ -212,8 +212,9 @@ public class BoardAdjTargetTests {
 		// Includes a path that doesn't have enough length
 		board.calcTargets(5, 0, 4);
 		targets= board.getTargets();
-		Assert.assertEquals(3, targets.size());
+		Assert.assertEquals(4, targets.size());//changed to 4 with addition of 2nd cell
 		Assert.assertTrue(targets.contains(board.getCellAt(5, 2)));
+		Assert.assertTrue(targets.contains(board.getCellAt(5, 0)));//was not here before.
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 3)));	
 		Assert.assertTrue(targets.contains(board.getCellAt(5, 4)));
 	}	
@@ -225,12 +226,13 @@ public class BoardAdjTargetTests {
 	public void testTargetsSixSteps() {
 		board.calcTargets(5, 0, 6);
 		Set<BoardCell> targets= board.getTargets();
-		Assert.assertEquals(5, targets.size());
+		Assert.assertEquals(6, targets.size());//changed to 6 with addition of cell 2
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 3)));
+		Assert.assertTrue(targets.contains(board.getCellAt(5, 3)));//added
 		Assert.assertTrue(targets.contains(board.getCellAt(5, 4)));	
-		Assert.assertTrue(targets.contains(board.getCellAt(4, 5)));	
+		Assert.assertTrue(targets.contains(board.getCellAt(4, 5)));
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 1)));	
-		Assert.assertTrue(targets.contains(board.getCellAt(5, 6)));	
+		Assert.assertTrue(targets.contains(board.getCellAt(5, 6)));
 	}	
 	
 	// Test getting into a room
