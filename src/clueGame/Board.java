@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,19 +16,24 @@ import clueGame.RoomCell.DoorDirection;
 
 public class Board {
 	private BoardCell[][] layout;
-	private Map<Character, String> rooms = new HashMap<Character, String>();
-	private Map<BoardCell, LinkedList<BoardCell>> adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
-	private int numRows;
-	private int numColumns;
+	private ArrayList<String[]> boardData;
+	private Map<Character, String> rooms;
+	private Map<BoardCell, LinkedList<BoardCell>> adjacencies;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
+	private int numRows;
+	private int numColumns;
 	private String clueLegendFile;
 	private String clueBoardFile;
-	private ArrayList<String[]> boardData = new ArrayList<String[]>(); // the array list holds the rows, while each index of row holds a piece of data corresponding to that row and column.
-
+	
 	public Board(String layout, String legend){
 		clueBoardFile = layout;
 		clueLegendFile = legend;
+		boardData = new ArrayList<String[]>();
+		rooms = new HashMap<Character, String>();
+		adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
+		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
 	}
 
 	private void setLayoutCells() throws BadConfigFormatException{
@@ -214,21 +220,27 @@ public class Board {
 		return layout[i][j];
 	}
 
+	//Not passing tests.
+	//Adds to targeted correctly.
+	//Problem: calling targets.size() the second time in each of the functions comes back higher than it should.
+	//This is because the targets list is not cleared in between calls of calcTargets. 
+	//This appends new targets to the list resulting in a higher size than expected
 	public void calcTargets(int row, int col, int roll) {
-		// TODO Auto-generated method stub
+		
 		BoardCell boardCell = getCellAt(row, col);
 		visited.add(boardCell);
-		if(roll == 0) targets.add(boardCell);
+		if(roll == 0){
+			targets.add(boardCell);
+		}
 		for(BoardCell b : adjacencies.get(boardCell)){
 			if(!visited.contains(b) && roll > 0){
-				calcTargets(row, col, roll-1);
+				calcTargets(b.getRow(), b.getColumn(), roll-1);
 			}
 		}
-
 	}
 
 	public Set<BoardCell> getTargets() {
-		return null;
+		return targets;
 	}
 
 	public Map<Character, String> getRooms() {
