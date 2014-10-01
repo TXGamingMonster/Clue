@@ -201,11 +201,13 @@ public class BoardAdjTargetTests {
 	public void testTargetsFourSteps() {
 		board.calcTargets(23, 6, 4);
 		Set<BoardCell> targets= board.getTargets();
-		Assert.assertEquals(4, targets.size());
+		Assert.assertEquals(5, targets.size());//changed to 5 with addition of 5th cell
 		Assert.assertTrue(targets.contains(board.getCellAt(20, 7)));
 		Assert.assertTrue(targets.contains(board.getCellAt(19, 6)));
 		Assert.assertTrue(targets.contains(board.getCellAt(21, 6)));
 		Assert.assertTrue(targets.contains(board.getCellAt(22, 7)));
+		Assert.assertTrue(targets.contains(board.getCellAt(23, 8)));//was not here before, I think it should be
+		
 		
 		// Includes a path that doesn't have enough length
 		board.calcTargets(5, 0, 4);

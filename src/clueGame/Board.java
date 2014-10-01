@@ -188,28 +188,20 @@ public class Board {
 			return adjacentCells;
 		}
 		//check above cell
-		if (i > 0) {
-			if (layout[i-1][j].isWalkway() || ((layout[i-1][j].isDoorway() && layout[i-1][j].getDoorDirection() == DoorDirection.DOWN))) {
-				adjacentCells.add(layout[i-1][j]);
-			}
+		if (i > 0 && (layout[i-1][j].isWalkway() || ((layout[i-1][j].isDoorway() && layout[i-1][j].getDoorDirection() == DoorDirection.DOWN)))) {
+			adjacentCells.add(layout[i-1][j]);
 		}
 		//check below cell
-		if (i < numRows-1) {
-			if (layout[i+1][j].isWalkway() || ((layout[i+1][j].isDoorway() && layout[i+1][j].getDoorDirection() == DoorDirection.UP))) {
-				adjacentCells.add(layout[i+1][j]);
-			}
+		if (i< numRows-1 && (layout[i+1][j].isWalkway() || ((layout[i+1][j].isDoorway() && layout[i+1][j].getDoorDirection() == DoorDirection.UP)))) {
+			adjacentCells.add(layout[i+1][j]);
 		}
 		//check left cell
-		if (j > 0) {
-			if (layout[i][j-1].isWalkway() || ((layout[i][j-1].isDoorway() && layout[i][j-1].getDoorDirection() == DoorDirection.RIGHT))) {
-				adjacentCells.add(layout[i][j-1]);
-			}
+		if (j > 0 && (layout[i][j-1].isWalkway() || ((layout[i][j-1].isDoorway() && layout[i][j-1].getDoorDirection() == DoorDirection.RIGHT)))) {
+			adjacentCells.add(layout[i][j-1]);
 		}
 		//check right cell
-		if (j < numColumns-1) {
-			if (layout[i][j+1].isWalkway() || ((layout[i][j+1].isDoorway() && layout[i][j+1].getDoorDirection() == DoorDirection.LEFT))) {
-				adjacentCells.add(layout[i][j+1]);
-			}
+		if (j < numColumns-1 && (layout[i][j+1].isWalkway() || ((layout[i][j+1].isDoorway() && layout[i][j+1].getDoorDirection() == DoorDirection.LEFT)))) {
+			adjacentCells.add(layout[i][j+1]);
 		}
 		return adjacentCells;
 	}
