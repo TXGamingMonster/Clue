@@ -165,7 +165,7 @@ public class BoardAdjTargetTests {
 	@Test
 	public void testTargetsOneStep() {
 		board.calcTargets(23, 6, 1);
-		Set<BoardCell> targets = board.getTargets();
+		Set<BoardCell> targets= board.getTargets();
 		Assert.assertEquals(2, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(23, 7)));
 		Assert.assertTrue(targets.contains(board.getCellAt(22, 6)));	

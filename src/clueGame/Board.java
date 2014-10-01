@@ -25,15 +25,13 @@ public class Board {
 	private int numColumns;
 	private String clueLegendFile;
 	private String clueBoardFile;
-	
+
 	public Board(String layout, String legend){
 		clueBoardFile = layout;
 		clueLegendFile = legend;
 		boardData = new ArrayList<String[]>();
 		rooms = new HashMap<Character, String>();
 		adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
-		visited = new HashSet<BoardCell>();
-		targets = new HashSet<BoardCell>();
 	}
 
 	private void setLayoutCells() throws BadConfigFormatException{
@@ -191,25 +189,25 @@ public class Board {
 		}
 		//check above cell
 		if (i > 0) {
-			if (layout[i-1][j].isWalkway() || (layout[i-1][j].isDoorway() && layout[i-1][j].getDoorDirection() == DoorDirection.DOWN)) {
+			if (layout[i-1][j].isWalkway() || ((layout[i-1][j].isDoorway() && layout[i-1][j].getDoorDirection() == DoorDirection.DOWN))) {
 				adjacentCells.add(layout[i-1][j]);
 			}
 		}
 		//check below cell
 		if (i < numRows-1) {
-			if (layout[i+1][j].isWalkway() || (layout[i+1][j].isDoorway() && layout[i+1][j].getDoorDirection() == DoorDirection.UP)) {
+			if (layout[i+1][j].isWalkway() || ((layout[i+1][j].isDoorway() && layout[i+1][j].getDoorDirection() == DoorDirection.UP))) {
 				adjacentCells.add(layout[i+1][j]);
 			}
 		}
 		//check left cell
 		if (j > 0) {
-			if (layout[i][j-1].isWalkway() || (layout[i][j-1].isDoorway() && layout[i][j-1].getDoorDirection() == DoorDirection.RIGHT)) {
+			if (layout[i][j-1].isWalkway() || ((layout[i][j-1].isDoorway() && layout[i][j-1].getDoorDirection() == DoorDirection.RIGHT))) {
 				adjacentCells.add(layout[i][j-1]);
 			}
 		}
 		//check right cell
 		if (j < numColumns-1) {
-			if (layout[i][j+1].isWalkway() || (layout[i][j+1].isDoorway() && layout[i][j+1].getDoorDirection() == DoorDirection.LEFT)) {
+			if (layout[i][j+1].isWalkway() || ((layout[i][j+1].isDoorway() && layout[i][j+1].getDoorDirection() == DoorDirection.LEFT))) {
 				adjacentCells.add(layout[i][j+1]);
 			}
 		}
@@ -221,20 +219,22 @@ public class Board {
 	}
 
 	//Not passing tests.
-	//Adds to targeted correctly.
-	//Problem: calling targets.size() the second time in each of the functions comes back higher than it should.
-	//This is because the targets list is not cleared in between calls of calcTargets. 
-	//This appends new targets to the list resulting in a higher size than expected
 	public void calcTargets(int row, int col, int roll) {
-		
-		BoardCell boardCell = getCellAt(row, col);
-		visited.add(boardCell);
+		targets = new HashSet<BoardCell>();
+		visited = new HashSet<BoardCell>();
+		BoardCell cell = getCellAt(row, col);
+		recursiveCalcTargets(cell, roll);
+	}
+
+	public void recursiveCalcTargets(BoardCell cell, int roll){
+		cell = getCellAt(cell.getRow(), cell.getColumn());
+		visited.add(cell);
 		if(roll == 0){
-			targets.add(boardCell);
+			targets.add(cell);
 		}
-		for(BoardCell b : adjacencies.get(boardCell)){
+		for(BoardCell b : adjacencies.get(cell)){
 			if(!visited.contains(b) && roll > 0){
-				calcTargets(b.getRow(), b.getColumn(), roll-1);
+				recursiveCalcTargets(b, roll-1);
 			}
 		}
 	}
