@@ -16,4 +16,8 @@ public class ComputerPlayer {
 	public void updateSeen(Card seen) {
 		
 	}
+	
+	public boolean isHuman() {
+		return false;
+	}
 }

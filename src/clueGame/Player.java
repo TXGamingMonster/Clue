@@ -10,4 +10,8 @@ public class Player {
 	{
 		return null;
 	}
+	
+	public boolean isHuman() {
+		return false;
+	}
 }
