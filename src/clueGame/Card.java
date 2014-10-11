@@ -39,4 +39,11 @@ public class Card {
 		default: return name;
 		}
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		Card c = (Card)obj;
+		return this.type == c.getType();
+	}
 }
