@@ -1,0 +1,3 @@
+Cthulu:PERSON
+Butcher's Rest:ROOM
+Book of Satan:WEAPON

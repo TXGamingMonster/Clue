@@ -13,6 +13,16 @@ public class Card {
 		type = c;
 	}
 	
+	public Card(String n, String c) {
+		// TODO Auto-generated constructor stub
+		name = n;
+		switch(c) {
+		case "PERSON": type = CardType.PERSON; break;
+		case "WEAPON": type = CardType.WEAPON; break;
+		case "ROOM": type = CardType.ROOM; break;
+		}
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -35,7 +45,7 @@ public class Card {
 		switch(type) {
 		case PERSON: return this.name + " : Person";
 		case WEAPON: return this.name + " : Weapon";
-		case ROOM: return this.name + " : Person";
+		case ROOM: return this.name + " : Room";
 		default: return name;
 		}
 	}
