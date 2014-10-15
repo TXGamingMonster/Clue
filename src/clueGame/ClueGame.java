@@ -66,4 +66,5 @@ public class ClueGame {
 	public void handleSuggestion(String person, String room, String weapon, Player accusor) {
 		
 	}
+	
 }

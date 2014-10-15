@@ -1,3 +1,22 @@
 Cthulu:PERSON
+Azanoth:PERSON
+Yog-Sothoth:PERSON
+Sho-Gath:PERSON
+Xalafu:PERSON
+Psuchawrl:PERSON
+Pistol:WEAPON
+Flamethrower:WEAPON
+Crookes Tube:WEAPON
+Necronomicon:WEAPON
+Cleaver:WEAPON
+Telekenesis:WEAPON
+Crossbow:WEAPON
 Butcher's Rest:ROOM
-Book of Satan:WEAPON
+Catacombs:ROOM
+Garden Maze:ROOM
+Hall of Mirrors:ROOM
+Mausoleum:ROOM
+Necropolis:ROOM
+Pit:ROOM
+Reliquary:ROOM
+Sacrificial Chamber:ROOM

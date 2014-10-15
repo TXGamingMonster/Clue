@@ -1,0 +1,10 @@
+B, Butcher's Rest
+C, Catacombs
+G, Garden Maze
+H, Hall of Mirrors
+M, Mausoleum
+N, Necropolis
+P, Pit
+R, Reliquary
+S, Sacrificial Chamber
+X, Abyss(Closet)
