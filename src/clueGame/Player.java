@@ -20,4 +20,9 @@ public class Player {
 		// TODO Auto-generated method stub
 		return cards;
 	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
 }

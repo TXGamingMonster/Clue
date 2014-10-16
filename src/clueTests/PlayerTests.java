@@ -66,9 +66,11 @@ public class PlayerTests {
 			Assert.assertTrue(list.contains(CardType.PERSON));
 			Assert.assertTrue(list.contains(CardType.WEAPON));
 			Assert.assertTrue(list.contains(CardType.ROOM));
-				
+			for(Player q: game.getPlayers())
+				if(!q.getName().equals(p.getName()))
+					Assert.assertFalse(p.getHand().equals(q.getHand()));
 		}
-			
+		
 	}
 
 }

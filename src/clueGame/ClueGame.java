@@ -68,12 +68,12 @@ public class ClueGame {
 	}
 	
 	public void deal() {
-		/*int dealt = 0;
+		int dealt = 0;
 		while(dealt < players.size()*3)
 		{
 			Card c = deck.pop();
 			
-		}*/
+		}
 	}
 	
 	public void selectAnswer() {
