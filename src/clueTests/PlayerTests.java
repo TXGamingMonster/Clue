@@ -81,8 +81,8 @@ public class PlayerTests {
 			for(Player q:game.getPlayers())
 				if(!p.equals(q))
 				{
-					Assert.assertFalse(p.getName().equals(q.getName()));
-					Assert.assertFalse(p.getColor().equals(q.getColor()));
+					Assert.assertFalse(p.getName().equals(q.getName()));	
+					Assert.assertFalse(p.getColor().equals(q.getColor()));					//No two players are the same
 					Assert.assertFalse(p.getStlocation().equals(q.getStlocation()));
 				}
 		}
