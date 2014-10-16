@@ -7,12 +7,15 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
+import clueGame.Card.CardType;
+
 public class ClueGame {
 	private Map<Character, String> rooms;
 	private Board gameBoard;
 	private HashSet<Player> players;
 	private Solution solution;
 	private Stack<Card> deck;
+	private String sols[] = new String[3];
 	
 	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
 	public ClueGame(){
@@ -68,12 +71,26 @@ public class ClueGame {
 	}
 	
 	public void deal() {
-		int dealt = 0;
-		while(dealt < players.size()*3)
+		while(!deck.isEmpty())
 		{
+			boolean boo = true;
 			Card c = deck.pop();
-			
+			for(Player p: players)
+				if(boo)
+					if(p.needsType(c.getType()))
+					{
+						p.addCard(c);
+						boo = false;
+					}
+			if(boo)
+				switch(c.getType())
+				{
+					case PERSON: sols[0] = CardType.PERSON.toString(); break;
+					case WEAPON: sols[1] = CardType.WEAPON.toString(); break;
+					case ROOM: sols[2] = CardType.ROOM.toString(); break;
+				}
 		}
+		solution = new Solution(sols[0],sols[1],sols[2]);
 	}
 	
 	public void selectAnswer() {
@@ -82,6 +99,16 @@ public class ClueGame {
 	
 	public void handleSuggestion(String person, String room, String weapon, Player accusor) {
 		
+	}
+
+	public void addNewPlayer(String string) {
+		// TODO Auto-generated method stub
+		players.add(new Player(string));
+	}
+
+	public Solution getSolution() {
+		// TODO Auto-generated method stub
+		return solution;
 	}
 	
 }

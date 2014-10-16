@@ -9,7 +9,6 @@ Flamethrower:WEAPON
 Crookes Tube:WEAPON
 Necronomicon:WEAPON
 Cleaver:WEAPON
-Telekenesis:WEAPON
 Crossbow:WEAPON
 Butcher's Rest:ROOM
 Catacombs:ROOM

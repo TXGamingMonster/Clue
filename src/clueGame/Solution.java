@@ -9,5 +9,10 @@ public class Solution {
 		this.weapon = weapon;
 		this.room = room;
 	}
+
+	public boolean hasSolution() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }
