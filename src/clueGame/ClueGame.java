@@ -15,7 +15,7 @@ import clueGame.Card.CardType;
 public class ClueGame {
 	private Map<Character, String> rooms;
 	private Board gameBoard;
-	private HashSet<Player> players;
+	private ArrayList<Player> players;
 	private Solution solution;
 	private Stack<Card> deck;
 	private String sols[] = new String[3];
@@ -25,7 +25,7 @@ public class ClueGame {
 		gameBoard = new Board("ClueFilesCR/ClueLayout.csv", "ClueFilesCR/ClueLegend.txt");
 		rooms = gameBoard.getRooms();
 		
-		players = new HashSet<Player>();
+		players = new ArrayList<Player>();
 		
 		try {
 			Scanner sc = new Scanner(new FileReader("cards.txt"));
@@ -95,31 +95,47 @@ public class ClueGame {
 		return deck;
 	}
 
-	public HashSet<Player> getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 	
 	public void deal() {
+		boolean boo1 = true, boo2 = true, boo3 = true;
+		Stack<Card> deck2 = new Stack<Card>();
 		while(!deck.isEmpty())
 		{
-			boolean boo = true;
 			Card c = deck.pop();
-			for(Player p: players)
-				if(boo)
-					if(p.needsType(c.getType()))
-					{
-						p.addCard(c);
-						boo = false;
-					}
-			if(boo)
-				switch(c.getType())
+			
+			if(boo1 && c.getType().equals(CardType.PERSON))
 				{
-					case PERSON: sols[0] = CardType.PERSON.toString(); break;
-					case WEAPON: sols[1] = CardType.WEAPON.toString(); break;
-					case ROOM: sols[2] = CardType.ROOM.toString(); break;
+					sols[0] = c.getName();
+					boo1 = false;
 				}
+			else if(boo2 && c.getType().equals(CardType.WEAPON))
+				{
+					sols[1] = c.getName();
+					boo2 = false;
+				}
+			else if(boo3 && c.getType().equals(CardType.ROOM))
+				{
+					sols[2] = c.getName();
+					boo3 = false;
+				}
+			else deck2.push(c);
+			if(boo1 && boo2 && boo3)
+				break;
 		}
 		solution = new Solution(sols[0],sols[1],sols[2]);
+		while(!deck2.isEmpty())
+			deck.push(deck2.pop());
+		Collections.shuffle(deck);
+		int i=0;
+		while(!deck.isEmpty())
+		{
+			players.get(i%6).addCard(deck.pop());
+			i++;
+		}
+		
 	}
 	
 	public void selectAnswer() {

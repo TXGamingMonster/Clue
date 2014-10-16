@@ -58,13 +58,8 @@ public class PlayerTests {
 		Assert.assertEquals(0,game.getDeck().size());		//All cards have been dealt from the deck
 		for(Player p: game.getPlayers())
 		{
-			ArrayList<CardType> list = new ArrayList<CardType>();
-			Assert.assertEquals(3,p.getHand().size());
-			for(Card c: p.getHand())
-				list.add(c.getType());
-			Assert.assertTrue(list.contains(CardType.PERSON));		//Each player has one of every CardType
-			Assert.assertTrue(list.contains(CardType.WEAPON));
-			Assert.assertTrue(list.contains(CardType.ROOM));
+			System.out.println(p.getHand().size());
+			Assert.assertTrue(p.getHand().size()<=4);		//All players have at least three cards
 			for(Player q: game.getPlayers())
 				if(!q.getName().equals(p.getName()))
 					Assert.assertFalse(p.getHand().equals(q.getHand()));	//No two players have the same hand
@@ -75,7 +70,25 @@ public class PlayerTests {
 	//Test initial player names, colours, and starting locations
 	@Test
 	public void playerStart() {
-		Assert.assertEquals(6, game.getPlayers().size());
+		Assert.assertEquals(6, game.getPlayers().size());		//Six players were created
+		int i=0;
+		int j=0;
+		for(Player p: game.getPlayers())
+		{
+			if(p.isHuman())
+				i++;
+			else j++;
+			for(Player q:game.getPlayers())
+				if(!p.equals(q))
+				{
+					Assert.assertFalse(p.getName().equals(q.getName()));
+					Assert.assertFalse(p.getColor().equals(q.getColor()));
+					Assert.assertFalse(p.getStlocation().equals(q.getStlocation()));
+				}
+		}
+		Assert.assertEquals(1,i);			//Only one player is human
+		Assert.assertEquals(5,j);			//the other players are computers
+		
 	}
 
 }

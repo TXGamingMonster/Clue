@@ -39,6 +39,14 @@ public class Player {
 		// TODO Auto-generated method stub
 		return name;
 	}
+	
+	public Color getColor() {
+		return color;
+	}
+	
+	public String getStlocation() {
+		return stlocation;
+	}
 
 	public boolean needsType(CardType type) {
 		// TODO Auto-generated method stub
