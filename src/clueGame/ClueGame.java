@@ -59,6 +59,10 @@ public class ClueGame {
 		}
 	}
 	
+	public Stack<Card> getDeck() {
+		return deck;
+	}
+
 	public void deal() {
 		
 	}
