@@ -1,18 +1,22 @@
 package clueGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import clueGame.Card.CardType;
 
 public class Player {
-	private String name;
+	private String name,stlocation;
+	Color color;
 	private HashSet<Card> cards;
 	private ArrayList<CardType> needs;
 	
-	public Player(String name) {
+	public Player(String name, Color color, String location) {
 		// TODO Auto-generated constructor stub
 		this.name = name;
+		this.color = color;
+		this.stlocation = location;
 		cards = new HashSet<Card>();
 		needs = new ArrayList<CardType>();
 	}

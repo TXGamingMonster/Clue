@@ -1,10 +1,13 @@
 package clueGame;
 
+import java.awt.Color;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Stack;
 
 import clueGame.Card.CardType;
@@ -21,7 +24,33 @@ public class ClueGame {
 	public ClueGame(){
 		gameBoard = new Board("ClueFilesCR/ClueLayout.csv", "ClueFilesCR/ClueLegend.txt");
 		rooms = gameBoard.getRooms();
+		
 		players = new HashSet<Player>();
+		
+		try {
+			Scanner sc = new Scanner(new FileReader("cards.txt"));
+			ArrayList<String> n = new ArrayList<String>();
+			ArrayList<String> r = new ArrayList<String>();
+			while(sc.hasNextLine())
+			{
+				String line[] = sc.nextLine().split(":");
+				if(line[1].equals("PERSON"))
+					n.add(line[0]);
+				if(line[1].equals("ROOM"))
+					r.add(line[0]);
+			}
+			Collections.shuffle(n);
+			Collections.shuffle(r);
+			players.add(new HumanPlayer(n.get(0),Color.BLUE,r.get(0)));
+			players.add(new ComputerPlayer(n.get(1),Color.GREEN,r.get(1)));
+			players.add(new ComputerPlayer(n.get(2),Color.RED,r.get(2)));
+			players.add(new ComputerPlayer(n.get(3),Color.DARK_GRAY,r.get(3)));
+			players.add(new ComputerPlayer(n.get(4),Color.MAGENTA,r.get(4)));
+			players.add(new ComputerPlayer(n.get(5),Color.WHITE,r.get(5)));
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		
 		deck = new Stack<Card>();
 		loadDeck();
 		Collections.shuffle(deck);
@@ -99,11 +128,6 @@ public class ClueGame {
 	
 	public void handleSuggestion(String person, String room, String weapon, Player accusor) {
 		
-	}
-
-	public void addNewPlayer(String string) {
-		// TODO Auto-generated method stub
-		players.add(new Player(string));
 	}
 
 	public Solution getSolution() {

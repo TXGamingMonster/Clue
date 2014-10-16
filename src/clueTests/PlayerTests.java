@@ -25,11 +25,6 @@ public class PlayerTests {
 	@Before
 	public void setUp() throws Exception {
 		game = new ClueGame();
-		game.addNewPlayer("Bob");
-		game.addNewPlayer("Jim");
-		game.addNewPlayer("Dave");
-		game.addNewPlayer("Hal");
-		game.addNewPlayer("Mark");
 		Scanner sc = new Scanner(new FileReader("cards.txt"));
 		while(sc.hasNextLine())
 		{
@@ -75,6 +70,12 @@ public class PlayerTests {
 					Assert.assertFalse(p.getHand().equals(q.getHand()));	//No two players have the same hand
 		}
 		Assert.assertTrue(game.getSolution().hasSolution());		//Solution was created as well
+	}
+	
+	//Test initial player names, colours, and starting locations
+	@Test
+	public void playerStart() {
+		
 	}
 
 }

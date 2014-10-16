@@ -1,13 +1,19 @@
 package clueGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Set;
 
 import clueGame.Card.CardType;
 
-public class ComputerPlayer {
+public class ComputerPlayer extends Player{
 	private char lastRoomVisited;
 	
+	public ComputerPlayer(String string, Color blue, String string2) {
+		// TODO Auto-generated constructor stub
+		super(string,blue,string2);
+	}
+
 	public void pickLocation(Set<BoardCell> targets) {
 		
 	}
