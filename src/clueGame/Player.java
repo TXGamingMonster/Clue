@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Player {
@@ -13,5 +14,10 @@ public class Player {
 	
 	public boolean isHuman() {
 		return false;
+	}
+
+	public HashSet<Card> getHand() {
+		// TODO Auto-generated method stub
+		return cards;
 	}
 }

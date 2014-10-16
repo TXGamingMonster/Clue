@@ -13,7 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import clueGame.Card;
+import clueGame.Card.CardType;
 import clueGame.ClueGame;
+import clueGame.Player;
 
 public class PlayerTests {
 
@@ -49,9 +51,24 @@ public class PlayerTests {
 		Assert.assertTrue(shuffed);		//Cards in deck are in different positions from there load spots
 	}
 	
+	//Testing dealing of the deck and resulting player holdings
 	@Test
 	public void dealTests() {
-		
+		Assert.assertEquals(22,game.getDeck().size());
+		game.deal();
+		Assert.assertEquals(0,game.getDeck().size());
+		for(Player p: game.getPlayers())
+		{
+			ArrayList<CardType> list = new ArrayList<CardType>();
+			Assert.assertEquals(3,p.getHand().size());
+			for(Card c: p.getHand())
+				list.add(c.getType());
+			Assert.assertTrue(list.contains(CardType.PERSON));
+			Assert.assertTrue(list.contains(CardType.WEAPON));
+			Assert.assertTrue(list.contains(CardType.ROOM));
+				
+		}
+			
 	}
 
 }
