@@ -75,7 +75,7 @@ public class PlayerTests {
 	//Test initial player names, colours, and starting locations
 	@Test
 	public void playerStart() {
-		
+		Assert.assertEquals(6, game.getPlayers().size());
 	}
 
 }
