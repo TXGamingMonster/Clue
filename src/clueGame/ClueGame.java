@@ -15,7 +15,7 @@ public class ClueGame {
 	private Stack<Card> deck;
 	
 	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
-	public ClueGame() throws FileNotFoundException{
+	public ClueGame(){
 		gameBoard = new Board("ClueFilesCR/ClueLayout.csv", "ClueFilesCR/ClueLegend.txt");
 		rooms = gameBoard.getRooms();
 		players = new HashSet<Player>();
@@ -46,12 +46,16 @@ public class ClueGame {
 		
 	}
 	
-	public void loadDeck() throws FileNotFoundException{
-		Scanner sc = new Scanner(new FileReader("cards.txt"));
-		while(sc.hasNextLine()) {
-			String get = sc.nextLine();
-			String read[] = get.split(":");
-			deck.push(new Card(read[0],read[1]));
+	public void loadDeck(){
+		try {
+			Scanner sc = new Scanner(new FileReader("cards.txt"));
+			while(sc.hasNextLine()) {
+				String get = sc.nextLine();
+				String read[] = get.split(":");
+				deck.push(new Card(read[0],read[1]));
+			}
+		} catch (FileNotFoundException e){
+			System.out.println(e.getMessage());
 		}
 	}
 	
