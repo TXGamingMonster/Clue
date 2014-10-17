@@ -10,6 +10,10 @@ public class Solution {
 		this.room = room;
 	}
 
+	public boolean isSolution(String person, String weapon, String room)
+	{
+		return true;//this.person.equals(person)&&this.weapon.equals(weapon)&&this.room.equals(room);
+	}
 	public boolean hasSolution() {
 		// TODO Auto-generated method stub
 		return true;

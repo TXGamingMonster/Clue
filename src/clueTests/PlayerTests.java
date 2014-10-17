@@ -16,6 +16,7 @@ import clueGame.Card;
 import clueGame.Card.CardType;
 import clueGame.ClueGame;
 import clueGame.Player;
+import clueGame.Solution;
 
 public class PlayerTests {
 
@@ -90,5 +91,36 @@ public class PlayerTests {
 		Assert.assertEquals(5,j);			//the other players are computers
 		
 	}
+	
+	//Test for Solution matching
+	@Test
+	public void correctSoln()
+	{
+		Solution soln=new Solution("Mr. Green", "Candlestick", "Armory");
+		Assert.assertTrue(soln.isSolution("Mr. Green", "Candlestick", "Armory"));
+	}
+	
+	//Wrong person
+	@Test
+	public void wrongPerson()
+	{
+		Solution soln=new Solution("Mr. Green", "Candlestick", "Armory");
+		Assert.assertFalse(soln.isSolution("Mrs. White", "Candlestick", "Armory"));
+	}
+	
+	//Wrong Weapon
+	@Test
+	public void wrongWeapon()
+	{
+		Solution soln=new Solution("Mr. Green", "Candlestick", "Armory");
+		Assert.assertFalse(soln.isSolution("Mr. Green", "Knife", "Armory"));
+	}
 
+	//Wrong Room
+	@Test
+	public void wrongRoom()
+	{
+		Solution soln=new Solution("Mr. Green", "Candlestick", "Armory");
+		Assert.assertFalse(soln.isSolution("Mr. Green", "Candlestick", "Library"));
+	}
 }

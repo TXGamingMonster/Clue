@@ -145,6 +145,17 @@ public class ClueGame {
 	public void handleSuggestion(String person, String room, String weapon, Player accusor) {
 		
 	}
+	
+	public void handleAccusation(String person, String room, String weapon, Player accusor) {
+		if (solution.isSolution(person, weapon, room))
+		{
+			//Win
+		}
+		else
+		{
+			//Lose
+		}
+	}
 
 	public Solution getSolution() {
 		// TODO Auto-generated method stub
