@@ -60,7 +60,7 @@ public class PlayerTests {
 		for(Player p: game.getPlayers())
 		{
 			System.out.println(p.getHand().size());
-			Assert.assertTrue(p.getHand().size()<=4);		//All players have at least three cards
+			Assert.assertEquals(p.getHand().size(),3);		//All players have at least three cards
 			for(Player q: game.getPlayers())
 				if(!q.getName().equals(p.getName()))
 					Assert.assertFalse(p.getHand().equals(q.getHand()));	//No two players have the same hand
