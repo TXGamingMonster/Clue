@@ -12,7 +12,7 @@ public class Solution {
 
 	public boolean isSolution(String person, String weapon, String room)
 	{
-		return true;//this.person.equals(person)&&this.weapon.equals(weapon)&&this.room.equals(room);
+		return this.person.equals(person)&&this.weapon.equals(weapon)&&this.room.equals(room);
 	}
 	public boolean hasSolution() {
 		// TODO Auto-generated method stub
