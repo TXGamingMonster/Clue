@@ -132,7 +132,7 @@ public class ClueGame {
 		int i=0;
 		while(!deck.isEmpty())
 		{
-			players.get(i%6).addCard(deck.pop());
+			players.get(i%6).addCard(deck.pop()); 
 			i++;
 		}
 		
