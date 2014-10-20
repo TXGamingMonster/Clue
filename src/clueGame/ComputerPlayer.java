@@ -16,8 +16,14 @@ public class ComputerPlayer extends Player{
 		super(string,blue,string2);
 	}
 
-	public void pickLocation(Set<BoardCell> targets) {
-		
+	public BoardCell pickLocation(Set<BoardCell> targets) {
+		int x = (int)Math.random()*targets.size();
+		int i = 0;
+		for(BoardCell b: targets)
+			if(i == x)
+				return b;
+			else i++;
+		return null;
 	}
 	
 	public void createSuggestion(ClueGame game) {

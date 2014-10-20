@@ -14,7 +14,7 @@ import clueGame.Card.CardType;
 
 public class ClueGame {
 	public Map<Character, String> rooms;
-	private Board gameBoard;
+	public Board gameBoard;
 	public ArrayList<Player> players;
 	public ArrayList<String> weapons;
 	public ArrayList<String> roomlist;
