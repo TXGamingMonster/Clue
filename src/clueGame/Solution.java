@@ -14,9 +14,22 @@ public class Solution {
 	{
 		return this.person.equals(person)&&this.weapon.equals(weapon)&&this.room.equals(room);
 	}
+	
 	public boolean hasSolution() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public String getPerson() {
+		return person;
+	}
+
+	public String getWeapon() {
+		return weapon;
+	}
+
+	public String getRoom() {
+		return room;
 	}
 	
 }

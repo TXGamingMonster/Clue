@@ -17,42 +17,47 @@ public class ClueGame {
 	private Board gameBoard;
 	public ArrayList<Player> players;
 	public ArrayList<String> weapons;
+	public ArrayList<String> roomlist;
 	private Solution solution;
 	private Stack<Card> deck;
 	private String sols[] = new String[3];
 	
 	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
 	public ClueGame(){
-		gameBoard = new Board("ClueFilesCR/ClueLayout.csv", "ClueFilesCR/ClueLegend.txt");
+		gameBoard = new Board("ClueLayout2.csv", "ClueLegend2.txt");
 		rooms = gameBoard.getRooms();
 		
 		players = new ArrayList<Player>();
 		weapons = new ArrayList<String>();
+		roomlist = new ArrayList<String>();
 		
 		try {
 			Scanner sc = new Scanner(new FileReader("cards.txt"));
 			ArrayList<String> n = new ArrayList<String>();
-			ArrayList<String> r = new ArrayList<String>();
+			
 			while(sc.hasNextLine())
 			{
 				String line[] = sc.nextLine().split(":");
 				if(line[1].equals("PERSON"))
 					n.add(line[0]);
 				if(line[1].equals("ROOM"))
-					r.add(line[0]);
+					roomlist.add(line[0]);
+				if(line[1].equals("WEAPON"))
+					weapons.add(line[0]);
 			}
 			Collections.shuffle(n);
-			Collections.shuffle(r);
-			players.add(new HumanPlayer(n.get(0),Color.BLUE,r.get(0)));
-			players.add(new ComputerPlayer(n.get(1),Color.GREEN,r.get(1)));
-			players.add(new ComputerPlayer(n.get(2),Color.RED,r.get(2)));
-			players.add(new ComputerPlayer(n.get(3),Color.DARK_GRAY,r.get(3)));
-			players.add(new ComputerPlayer(n.get(4),Color.MAGENTA,r.get(4)));
-			players.add(new ComputerPlayer(n.get(5),Color.WHITE,r.get(5)));
+			Collections.shuffle(roomlist);
+			players.add(new HumanPlayer(n.get(0),Color.BLUE,roomlist.get(0)));
+			players.add(new ComputerPlayer(n.get(1),Color.GREEN,roomlist.get(1)));
+			players.add(new ComputerPlayer(n.get(2),Color.RED,roomlist.get(2)));
+			players.add(new ComputerPlayer(n.get(3),Color.DARK_GRAY,roomlist.get(3)));
+			players.add(new ComputerPlayer(n.get(4),Color.MAGENTA,roomlist.get(4)));
+			players.add(new ComputerPlayer(n.get(5),Color.WHITE,roomlist.get(5)));
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
+		System.out.println(roomlist.size());
+		System.out.println(weapons.size());
 		deck = new Stack<Card>();
 		loadDeck();
 		Collections.shuffle(deck);
@@ -62,6 +67,39 @@ public class ClueGame {
 	public ClueGame(String layout, String legend) {
 		gameBoard = new Board(layout, legend);
 		rooms = gameBoard.getRooms();
+		
+		players = new ArrayList<Player>();
+		weapons = new ArrayList<String>();
+		roomlist = new ArrayList<String>();
+		
+		try {
+			Scanner sc = new Scanner(new FileReader("cards.txt"));
+			ArrayList<String> n = new ArrayList<String>();
+			
+			while(sc.hasNextLine())
+			{
+				String line[] = sc.nextLine().split(":");
+				if(line[1].equals("PERSON"))
+					n.add(line[0]);
+				if(line[1].equals("ROOM"))
+					roomlist.add(line[0]);
+				if(line[1].equals("WEAPON"))
+					weapons.add(line[0]);
+			}
+			Collections.shuffle(n);
+			Collections.shuffle(roomlist);
+			players.add(new HumanPlayer(n.get(0),Color.BLUE,roomlist.get(0)));
+			players.add(new ComputerPlayer(n.get(1),Color.GREEN,roomlist.get(1)));
+			players.add(new ComputerPlayer(n.get(2),Color.RED,roomlist.get(2)));
+			players.add(new ComputerPlayer(n.get(3),Color.DARK_GRAY,roomlist.get(3)));
+			players.add(new ComputerPlayer(n.get(4),Color.MAGENTA,roomlist.get(4)));
+			players.add(new ComputerPlayer(n.get(5),Color.WHITE,roomlist.get(5)));
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		deck = new Stack<Card>();
+		loadDeck();
+		Collections.shuffle(deck);
 	}
 	
 	public void loadConfigFiles() {
@@ -144,7 +182,7 @@ public class ClueGame {
 		
 	}
 	
-	public void handleSuggestion(String person, String room, String weapon, Player accusor) {
+	public Card handleSuggestion(String person, String room, String weapon, Player accusor) {
 		Card c = null;
 		Player q = null;
 		boolean boo = true;
@@ -152,15 +190,17 @@ public class ClueGame {
 			if(boo && !p.getName().equals(accusor))
 			{
 				c = p.disproveSuggestion(person, weapon, room);
-				if(!c.equals(null))
+				if(c!=null)
 				{
 					q = p;
 					boo = false;
 				}
 			}
-		if(c.equals(null))
+		return c;
+		
+		/*if(c==null)
 			System.out.println("No one can prove the suggestion");
-		else System.out.println(q+" can disprove the suggestion with " + c);
+		else System.out.println(q+" can disprove the suggestion with " + c);*/
 	}
 	
 	public void handleAccusation(String person, String room, String weapon, Player accusor) {

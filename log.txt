@@ -1,0 +1,3 @@
+Custom message: ClueFilesCR/ClueLayoutBadColumns.csv is improperly formatted at row 2. (Number of column mismatch)
+Custom message: ClueFilesCR/ClueLayoutBadRoom.csv is improperly formatted at position (0,0). (cell label contains unexpected character(s))
+Custom message: ClueFilesCR/ClueLegendBadFormat.txt is improperly formatted at line 1.

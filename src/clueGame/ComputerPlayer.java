@@ -19,7 +19,8 @@ public class ComputerPlayer extends Player{
 	}
 	
 	public void createSuggestion(ClueGame game) {
-		game.handleSuggestion(person, game.rooms.get(lastRoomVisited), weapon, getName());
+		game.handleSuggestion(game.players.get((int)Math.random()*game.players.size()).getName(),
+				game.roomlist.get((int)Math.random()*game.roomlist.size()), game.weapons.get((int)Math.random()*game.weapons.size()), this);
 	}
 	
 	public void updateSeen(Card seen) {

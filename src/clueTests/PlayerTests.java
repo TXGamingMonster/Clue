@@ -2,9 +2,12 @@ package clueTests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import junit.framework.Assert;
@@ -25,7 +28,7 @@ public class PlayerTests {
 	
 	@Before
 	public void setUp() throws Exception {
-		game = new ClueGame();
+		game = new ClueGame("ClueLayout2.csv", "ClueLegend2.txt");
 		Scanner sc = new Scanner(new FileReader("cards.txt"));
 		while(sc.hasNextLine())
 		{
@@ -123,13 +126,23 @@ public class PlayerTests {
 		Assert.assertFalse(soln.isSolution("Mr. Green", "Candlestick", "Library"));
 	}
 	
-	//Testing handleSolution method in ClueGame
+	//Testing handleSuggestion method in ClueGame
 	@Test
 	public void handlingTest()
 	{
+		game.deal();
+		Solution s = game.getSolution();
+		
+		//Assert.assertNotNull(game.handleSuggestion(s.getPerson(), s.getRoom(), s.getWeapon(), new Player("", Color.RED, "")));
+		
 		for(Player p: game.getPlayers())
-		{
-			
-		}
+			for(String w: game.weapons)
+				for(String r: game.roomlist)
+				{
+					System.out.println("Hi");
+					if(!p.getName().equals(s.getPerson()) && !!r.equals(s.getRoom()) && !w.equals(s.getWeapon()))
+						Assert.assertNull(game.handleSuggestion(p.getName(), r, w, new Player("", Color.RED, "")));
+				}
+
 	}
 }
