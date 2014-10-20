@@ -203,7 +203,7 @@ public class ClueGame {
 		else System.out.println(q+" can disprove the suggestion with " + c);*/
 	}
 	
-	public void handleAccusation(String person, String room, String weapon, Player accusor) {
+	public void checkAccusation(String person, String room, String weapon, Player accusor) {
 		if (solution.isSolution(person, weapon, room))
 		{
 			//Win

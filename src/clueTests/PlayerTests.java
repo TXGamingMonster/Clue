@@ -139,7 +139,6 @@ public class PlayerTests {
 			for(String w: game.weapons)
 				for(String r: game.roomlist)
 				{
-					System.out.println("Hi");
 					if(!p.getName().equals(s.getPerson()) && !!r.equals(s.getRoom()) && !w.equals(s.getWeapon()))
 						Assert.assertNotNull(game.handleSuggestion(p.getName(), r, w, new Player("", Color.RED, "")));
 				}
