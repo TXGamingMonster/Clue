@@ -59,7 +59,6 @@ public class PlayerTests {
 		Assert.assertEquals(0,game.getDeck().size());		//All cards have been dealt from the deck
 		for(Player p: game.getPlayers())
 		{
-			System.out.println(p.getHand().size());
 			Assert.assertEquals(p.getHand().size(),3);		//All players have at least three cards
 			for(Player q: game.getPlayers())
 				if(!q.getName().equals(p.getName()))
@@ -122,5 +121,15 @@ public class PlayerTests {
 	{
 		Solution soln=new Solution("Mr. Green", "Candlestick", "Armory");
 		Assert.assertFalse(soln.isSolution("Mr. Green", "Candlestick", "Library"));
+	}
+	
+	//Testing handleSolution method in ClueGame
+	@Test
+	public void handlingTest()
+	{
+		for(Player p: game.getPlayers())
+		{
+			
+		}
 	}
 }

@@ -23,6 +23,9 @@ public class Player {
 	
 	public Card disproveSuggestion(String person, String weapon, String room)
 	{
+		for(Card c: getHand())
+			if(person.equals(c.getName()) || weapon.equals(c.getName()) || room.equals(c.getName())) 
+				return c;
 		return null;
 	}
 	

@@ -13,9 +13,10 @@ import java.util.Stack;
 import clueGame.Card.CardType;
 
 public class ClueGame {
-	private Map<Character, String> rooms;
+	public Map<Character, String> rooms;
 	private Board gameBoard;
-	private ArrayList<Player> players;
+	public ArrayList<Player> players;
+	public ArrayList<String> weapons;
 	private Solution solution;
 	private Stack<Card> deck;
 	private String sols[] = new String[3];
@@ -26,6 +27,7 @@ public class ClueGame {
 		rooms = gameBoard.getRooms();
 		
 		players = new ArrayList<Player>();
+		weapons = new ArrayList<String>();
 		
 		try {
 			Scanner sc = new Scanner(new FileReader("cards.txt"));
@@ -143,7 +145,22 @@ public class ClueGame {
 	}
 	
 	public void handleSuggestion(String person, String room, String weapon, Player accusor) {
-		
+		Card c = null;
+		Player q = null;
+		boolean boo = true;
+		for(Player p: players)
+			if(boo && !p.getName().equals(accusor))
+			{
+				c = p.disproveSuggestion(person, weapon, room);
+				if(!c.equals(null))
+				{
+					q = p;
+					boo = false;
+				}
+			}
+		if(c.equals(null))
+			System.out.println("No one can prove the suggestion");
+		else System.out.println(q+" can disprove the suggestion with " + c);
 	}
 	
 	public void handleAccusation(String person, String room, String weapon, Player accusor) {

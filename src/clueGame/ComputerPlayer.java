@@ -18,8 +18,8 @@ public class ComputerPlayer extends Player{
 		
 	}
 	
-	public void createSuggestion() {
-		
+	public void createSuggestion(ClueGame game) {
+		game.handleSuggestion(person, game.rooms.get(lastRoomVisited), weapon, getName());
 	}
 	
 	public void updateSeen(Card seen) {
