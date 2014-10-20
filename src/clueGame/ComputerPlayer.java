@@ -2,12 +2,14 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import clueGame.Card.CardType;
 
 public class ComputerPlayer extends Player{
 	private char lastRoomVisited;
+	private HashSet<String> seenlist;
 	
 	public ComputerPlayer(String string, Color blue, String string2) {
 		// TODO Auto-generated constructor stub
@@ -19,12 +21,33 @@ public class ComputerPlayer extends Player{
 	}
 	
 	public void createSuggestion(ClueGame game) {
-		game.handleSuggestion(game.players.get((int)Math.random()*game.players.size()).getName(),
-				game.roomlist.get((int)Math.random()*game.roomlist.size()), game.weapons.get((int)Math.random()*game.weapons.size()), this);
+		String n=null, w=null, r=null;
+		
+		for(Player p: game.players)
+			if(!seenlist.contains(p.getName()))
+			{
+				n = p.getName();
+				break;
+			}
+		for(String s: game.weapons)
+			if(!seenlist.contains(s))
+			{
+				w = s;
+				break;
+			}
+		for(String s: game.roomlist)
+			if(!seenlist.contains(s))
+			{
+				r = s;
+				break;
+			}
+		
+		if(n != null && r !=null && r !=null)
+			game.handleSuggestion(n,w,r,this);
 	}
 	
 	public void updateSeen(Card seen) {
-		
+		seenlist.add(seen.getName());
 	}
 	
 	public boolean isHuman() {
