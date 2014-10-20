@@ -133,7 +133,7 @@ public class PlayerTests {
 		game.deal();
 		Solution s = game.getSolution();
 		
-		//Assert.assertNotNull(game.handleSuggestion(s.getPerson(), s.getRoom(), s.getWeapon(), new Player("", Color.RED, "")));
+		Assert.assertNull(game.handleSuggestion(s.getPerson(), s.getRoom(), s.getWeapon(), new Player("", Color.RED, "")));
 		
 		for(Player p: game.getPlayers())
 			for(String w: game.weapons)
@@ -141,7 +141,7 @@ public class PlayerTests {
 				{
 					System.out.println("Hi");
 					if(!p.getName().equals(s.getPerson()) && !!r.equals(s.getRoom()) && !w.equals(s.getWeapon()))
-						Assert.assertNull(game.handleSuggestion(p.getName(), r, w, new Player("", Color.RED, "")));
+						Assert.assertNotNull(game.handleSuggestion(p.getName(), r, w, new Player("", Color.RED, "")));
 				}
 
 	}
