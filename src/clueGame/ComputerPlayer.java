@@ -59,24 +59,29 @@ public class ComputerPlayer extends Player {
 	
 	public Solution createSuggestion(ClueGame game) {
 		String n=null, w=null, r=null;
-		
+		int count=1;
 		for(Player p: game.players)
 			if(!seenlist.contains(p.getName()))
 			{
-				n = p.getName();
-				break;
+				//if(Math.random()<(1.0/count))
+					n = p.getName();
+				count++;
 			}
+		count=1;
 		for(String s: game.weapons)
 			if(!seenlist.contains(s))
 			{
-				w = s;
-				break;
+				//if(Math.random()<(1.0/count))
+					w = s;
+				count++;
 			}
+		count=1;
 		for(String s: game.roomlist)
 			if(!seenlist.contains(s))
 			{
-				r = s;
-				break;
+				//if(Math.random()<(1.0/count))
+					r = s;
+				count++;
 			}
 		
 		if(n != null && w !=null && r !=null)

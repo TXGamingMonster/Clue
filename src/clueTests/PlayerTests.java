@@ -177,6 +177,38 @@ public class PlayerTests {
 		
 	}
 	
+	//Test to ensure random choice among suggestions
+	@Test
+	public void randomSuggestionTest() {
+		int a=0;
+		int b=0;
+		for (int i=0;i<100;i++)
+		{
+			game.deal();
+			String first=game.getSolution().getPerson();
+			String second="Cthulu";
+			if (first.equals(second)) second="Azanoth";
+			ComputerPlayer comp = new ComputerPlayer("comp", Color.RED, game.roomlist.get(0));
+			for(Player p: game.players)
+				for(Card c: p.getHand())
+				{
+					if (c.name.equals(second)) continue;
+					comp.updateSeen(c);
+				}
+			//Checking created solution with game solution
+			//Assert.assertEquals(game.getSolution().getPerson(), comp.createSuggestion(game).getPerson());
+			Solution soln=comp.createSuggestion(game);
+			Assert.assertEquals(game.getSolution().getWeapon(), soln.getWeapon());
+			Assert.assertEquals(game.getSolution().getRoom(), soln.getRoom());
+			if(soln.getPerson().equals(first)) a++;
+			else if (soln.getPerson().equals(second)) b++;
+			else fail("Invalid suggestion");
+		}
+		System.out.println(""+a+" "+b);
+		Assert.assertTrue(a>30);//make sure both possibilities happen
+		Assert.assertTrue(b>30);
+	}
+	
 	//Testing random ComputerPlayer target selection with no room in question
 	@Test
 	public void targetnoroomTest() {
