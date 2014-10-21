@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import clueGame.Card.CardType;
@@ -18,13 +19,39 @@ public class ComputerPlayer extends Player {
 	}
 
 	public BoardCell pickLocation(Set<BoardCell> targets) {
-		int x = (int)Math.random()*targets.size();
-		int i = 0;
-		for(BoardCell b: targets)
+		LinkedList<RoomCell> doors=new LinkedList<RoomCell>();
+		LinkedList<BoardCell>tmpTargets=new LinkedList<BoardCell>(targets);
+		for (BoardCell i : targets)
 		{
-			if(i == x)
-				return b;
-			else i++;
+			if (i.isDoorway()&&((RoomCell) i).getInitial()!=lastRoomVisited)
+			{
+				doors.add((RoomCell)i);
+			}
+			else if (i.isDoorway()&&((RoomCell) i).getInitial()==lastRoomVisited)
+			{
+				tmpTargets.remove(i);
+			}
+		}
+		if (doors.size()!=0)
+		{
+			int x = (int) (Math.random()*doors.size());
+			int i = 0;
+			for(BoardCell b: doors)
+			{
+				if(i == x)
+					return b;
+				else i++;
+			}
+		}
+		else{
+			int x = (int) (Math.random()*tmpTargets.size());
+			int i = 0;
+			for(BoardCell b: tmpTargets)
+			{
+				if(i == x)
+					return b;
+				else i++;
+			}
 		}
 		return null;
 		

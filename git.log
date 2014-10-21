@@ -1,0 +1,119 @@
+commit 008feb04c8fce631306725fe30964e0a306919da
+Author: Tyler Hansel <tthansel@gmail.com>
+Date:   Thu Oct 16 21:38:55 2014 -0600
+
+    Refining Dealing to pass stricter test.
+
+commit 74f1f667863cc6ada6375754380205ddd965c410
+Author: Tyler Hansel <tthansel@gmail.com>
+Date:   Thu Oct 16 21:37:16 2014 -0600
+
+    Making test logic stricter
+
+commit 854d7d6ac7ab756fbef9db251d1ae40b21efbaa7
+Author: Tyler Hansel <tthansel@gmail.com>
+Date:   Thu Oct 16 21:03:00 2014 -0600
+
+    Added Solution Checking
+
+commit cb1108d0d305923d1ab2f90eaa22d6aba6d8d4ad
+Author: Tyler Hansel <tthansel@gmail.com>
+Date:   Thu Oct 16 21:02:10 2014 -0600
+
+    Adding tests for accusations
+
+commit c3c443e6bb3d9a06fed32909c4e761f3a43a0ede
+Author: “Cyndi <stunger@mines.edu>
+Date:   Thu Oct 16 11:50:13 2014 -0600
+
+    Minor changes to tests
+
+commit 2c14a605f5ad7549aad51afd6bba1f7071a3691a
+Author: “Cyndi <stunger@mines.edu>
+Date:   Thu Oct 16 11:45:40 2014 -0600
+
+    Fixed dealing method and tests
+
+commit 0dc45a79be229be5de404a86d4b59131982d940c
+Author: “Cyndi <stunger@mines.edu>
+Date:   Thu Oct 16 10:46:19 2014 -0600
+
+    Started player setup testing
+
+commit d8be27881e0f99940e9c7fad1bf2569c83c04e25
+Author: “Cyndi <stunger@mines.edu>
+Date:   Thu Oct 16 10:44:19 2014 -0600
+
+    Added methods in ClueGame constructor to create players
+
+commit 8722198a34508e4ffdd53d55198088468ff8a2e4
+Author: “Cyndi <stunger@mines.edu>
+Date:   Wed Oct 15 21:25:15 2014 -0600
+
+    Major changes to ClueGame and Player
+
+commit 825f493aae4fec00fc5790d0a708328b43c6b8f6
+Author: “Cyndi <stunger@mines.edu>
+Date:   Wed Oct 15 20:49:42 2014 -0600
+
+    Minor method changes to enable tests to run
+
+commit b0826c21400d3b0dd99b57bfc90c7ab2da831836
+Author: “Cyndi <stunger@mines.edu>
+Date:   Wed Oct 15 20:37:59 2014 -0600
+
+    Added failing dealing tests
+
+commit 4795ed29ebfe36f66e7d9577738e1cbf205cca90
+Author: “Cyndi <stunger@mines.edu>
+Date:   Wed Oct 15 20:10:40 2014 -0600
+
+    Added getDeck method to ClueGame and started creating tests
+
+commit 282385393b51704b808fa89dcf1e62b29e9db53f
+Author: “Cyndi <stunger@mines.edu>
+Date:   Wed Oct 15 19:13:33 2014 -0600
+
+    Minor changes I cant remember
+
+commit 7810ab4188da81434f842359de6538d3e2a0574b
+Author: “Cyndi <stunger@mines.edu>
+Date:   Wed Oct 15 17:46:20 2014 -0600
+
+    Added custom legend and card names to repo
+
+commit f826481f466a9435750d65da9f8662c9a8d0267f
+Author: “Cyndi <stunger@mines.edu>
+Date:   Fri Oct 10 22:22:12 2014 -0600
+
+    Added deck methods to clueGame along with cards.txt for deck loading
+
+commit f7935ff20c6a5972c0e9ac4fec537ea5f81b091f
+Author: “Cyndi <stunger@mines.edu>
+Date:   Fri Oct 10 21:57:51 2014 -0600
+
+    Updated Player with isHuman() method, added player methods to clueGame
+
+commit ea53f0c138b356a0ea7185199cfaabe484975510
+Author: “Cyndi <stunger@mines.edu>
+Date:   Fri Oct 10 21:44:18 2014 -0600
+
+    Added skeleton Player classes, moving on to clueGame
+
+commit 528a76932e75f34853eabf0bef9744e00ac0e68a
+Author: “Cyndi <stunger@mines.edu>
+Date:   Fri Oct 10 21:36:19 2014 -0600
+
+    Added .equals to Card
+
+commit 05411eadf6afcde523bf9509e75131076e6a967e
+Author: “Cyndi <stunger@mines.edu>
+Date:   Fri Oct 10 12:48:41 2014 -0600
+
+    Added initial Player class
+
+commit 1e42503827692c5cfd9677537e7640e3c077b49e
+Author: “Cyndi <stunger@mines.edu>
+Date:   Fri Oct 10 12:35:00 2014 -0600
+
+    Added initial Card class

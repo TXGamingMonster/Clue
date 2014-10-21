@@ -21,6 +21,7 @@ import clueGame.Card.CardType;
 import clueGame.ClueGame;
 import clueGame.ComputerPlayer;
 import clueGame.Player;
+import clueGame.RoomCell;
 import clueGame.Solution;
 
 public class PlayerTests {
@@ -181,36 +182,34 @@ public class PlayerTests {
 	public void targetnoroomTest() {
 		ComputerPlayer player = new ComputerPlayer("", Color.RED, "");
 		// Pick a location with no rooms in target, just three targets
-		game.gameBoard.calcTargets(9, 25, 2);
+		game.gameBoard.calcTargets(6, 0, 2);
 		int a = 0;
 		int b = 0;
-		int c = 0;
 		// Run the test 100 times
+		System.out.println(game.gameBoard.getTargets().size());
 		for (int i=0; i<100; i++) {
 			BoardCell selected = player.pickLocation(game.gameBoard.getTargets());
-			if (selected == game.gameBoard.getCellAt(11, 0))
+			if (selected == game.gameBoard.getCellAt(5, 1))
 				a++;
-			else if (selected == game.gameBoard.getCellAt(8, 24))
+			else if (selected == game.gameBoard.getCellAt(6, 2))
 				b++;
-			else if (selected == game.gameBoard.getCellAt(9, 23))
-				c++;
 			else
+				//System.out.println(""+selected.getRow()+" "+selected.getColumn());
 				fail("Invalid target selected");
 		}
 		// Check that 100 choices were made
-		assertEquals(100, a + b + c);
+		assertEquals(100, a + b );
 		// Check that all targets were selected multiple times
-		assertTrue(a > 10);
-		assertTrue(b > 10);
-		assertTrue(c > 10);
+		assertTrue(a > 40);
+		assertTrue(b > 40);
 	}
 	
 	//Testing random ComputerPlayer target selection with a room in question
 	@Test
 	public void targetroomTest() {
 		ComputerPlayer player = new ComputerPlayer("", Color.RED, "");
-		// Pick a location with no rooms in target, just three targets
-		game.gameBoard.calcTargets(17, 9, 2);
+		// Pick a location with a room in the target
+		game.gameBoard.calcTargets(16, 8, 2);
 		int a = 0;
 		int b = 0;
 		int c = 0;
@@ -218,32 +217,29 @@ public class PlayerTests {
 		int e = 0;
 		int f = 0;
 		// Run the test 100 times
+		System.out.println(game.gameBoard.getTargets());
 		for (int i=0; i<100; i++) {
 			BoardCell selected = player.pickLocation(game.gameBoard.getTargets());
-			if (selected == game.gameBoard.getCellAt(18, 10))
+			if (selected == game.gameBoard.getCellAt(16, 6))
 				a++;
-			else if (selected == game.gameBoard.getCellAt(16, 10))
+			else if (selected == game.gameBoard.getCellAt(15, 7))
 				b++;
-			else if (selected == game.gameBoard.getCellAt(17, 11))
+			else if (selected == game.gameBoard.getCellAt(15, 9))
 				c++;
-			else if (selected == game.gameBoard.getCellAt(16, 8))
+			else if (selected == game.gameBoard.getCellAt(14, 8))
 				d++;
 			else if (selected == game.gameBoard.getCellAt(17, 7))
 				e++;
 			else if (selected == game.gameBoard.getCellAt(18, 8))
-				d++;
+				f++;
 			else
+			{
 				fail("Invalid target selected");
+			}
 		}
 		// Check that 100 choices were made
 		assertEquals(100, a + b + c + d  + e + f);
-		// Check that all targets were selected multiple times
-		assertTrue(a > 10);
-		assertTrue(b > 10);
-		assertTrue(c > 10);
-		assertTrue(d > 10);
-		assertTrue(e > 10);
-		assertTrue(f > 10);
+		assertEquals(100,a);//The room should be chosen every time
 	}
 
 	//Testing random ComputerPlayer target selection with a room in question CONSIDERING LAST ROOM VISITED
@@ -252,42 +248,39 @@ public class PlayerTests {
 		ComputerPlayer player = new ComputerPlayer("", Color.RED, "");
 		player.setLastVisited('N');
 		// Pick a location with no rooms in target, just three targets
-		game.gameBoard.calcTargets(17, 9, 2);
+		game.gameBoard.calcTargets(9, 16, 2);
 		int a = 0;
 		int b = 0;
 		int c = 0;
 		int d = 0;
 		int e = 0;
-		int f = 0;
 		
 		// Run the test 100 times
 		for (int i=0; i<100; i++) {
 			BoardCell selected = player.pickLocation(game.gameBoard.getTargets());
-			if (selected == game.gameBoard.getCellAt(18, 10))
+			if (selected == game.gameBoard.getCellAt(9, 17))
 				a++;
-			else if (selected == game.gameBoard.getCellAt(16, 10))
+			else if (selected == game.gameBoard.getCellAt(11, 16))
 				b++;
-			else if (selected == game.gameBoard.getCellAt(17, 11))
+			else if (selected == game.gameBoard.getCellAt(10, 15))
 				c++;
-			else if (selected == game.gameBoard.getCellAt(16, 8))
+			else if (selected == game.gameBoard.getCellAt(8, 15))
 				d++;
-			else if (selected == game.gameBoard.getCellAt(17, 7))
+			else if (selected == game.gameBoard.getCellAt(7, 16))
 				e++;
-			else if (selected == game.gameBoard.getCellAt(18, 8))
-				d++;
 			else
 				fail("Invalid target selected");
 		}
 		// Check that 100 choices were made
-		assertEquals(100, a + b + c + d  + e + f);
+		assertEquals(100, a + b + c + d  + e);
 		
 		// Check that all targets were selected multiple times except the room space
+		System.out.println(((RoomCell)game.gameBoard.getCellAt(9, 17)).getInitial());
 		assertTrue(a == 0);
 		assertTrue(b > 10);
 		assertTrue(c > 10);
 		assertTrue(d > 10);
 		assertTrue(e > 10);
-		assertTrue(f > 10);
 	}
 	
 	

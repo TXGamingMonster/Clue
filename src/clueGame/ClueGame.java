@@ -24,7 +24,7 @@ public class ClueGame {
 	
 	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
 	public ClueGame(){
-		gameBoard = new Board("ClueFilesLove/ClueLayout2.csv", "ClueFilesLove/ClueLegend2.txt");
+		gameBoard = new Board("ClueFilesCR/ClueLayout.csv", "ClueFilesCR/ClueLegend.txt");
 		rooms = gameBoard.getRooms();
 		
 		players = new ArrayList<Player>();
