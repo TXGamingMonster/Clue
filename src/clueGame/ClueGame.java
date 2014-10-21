@@ -24,7 +24,7 @@ public class ClueGame {
 	
 	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
 	public ClueGame(){
-		gameBoard = new Board("ClueLayout2.csv", "ClueLegend2.txt");
+		gameBoard = new Board("ClueFilesLove/ClueLayout2.csv", "ClueFilesLove/ClueLegend2.txt");
 		rooms = gameBoard.getRooms();
 		
 		players = new ArrayList<Player>();
@@ -32,7 +32,7 @@ public class ClueGame {
 		roomlist = new ArrayList<String>();
 		
 		try {
-			Scanner sc = new Scanner(new FileReader("cards.txt"));
+			Scanner sc = new Scanner(new FileReader("ClueFilesLove/cards.txt"));
 			ArrayList<String> n = new ArrayList<String>();
 			
 			while(sc.hasNextLine())
@@ -73,7 +73,7 @@ public class ClueGame {
 		roomlist = new ArrayList<String>();
 		
 		try {
-			Scanner sc = new Scanner(new FileReader("cards.txt"));
+			Scanner sc = new Scanner(new FileReader("ClueFilesLove/cards.txt"));
 			ArrayList<String> n = new ArrayList<String>();
 			
 			while(sc.hasNextLine())
@@ -120,7 +120,7 @@ public class ClueGame {
 	
 	public void loadDeck(){
 		try {
-			Scanner sc = new Scanner(new FileReader("cards.txt"));
+			Scanner sc = new Scanner(new FileReader("ClueFilesLove/cards.txt"));
 			while(sc.hasNextLine()) {
 				String get = sc.nextLine();
 				String read[] = get.split(":");

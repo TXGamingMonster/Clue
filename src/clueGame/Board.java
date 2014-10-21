@@ -22,7 +22,7 @@ public class Board {
 	private String clueLegendFile;
 	private String clueBoardFile;
 
-	public Board(String layout, String legend){
+	public Board(String layout, String legend) {
 		clueBoardFile = layout;
 		clueLegendFile = legend;
 		rooms = new HashMap<Character, String>();

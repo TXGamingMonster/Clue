@@ -30,8 +30,10 @@ public class PlayerTests {
 	
 	@Before
 	public void setUp() throws Exception {
-		game = new ClueGame("ClueLayout2.csv", "ClueLegend2.txt");
-		Scanner sc = new Scanner(new FileReader("cards.txt"));
+		game = new ClueGame("ClueFilesLove/ClueLayout2.csv", "ClueFilesLove/ClueLegend2.txt");
+		game.loadConfigFiles();
+		game.getBoard().calcAdjacencies();
+		Scanner sc = new Scanner(new FileReader("ClueFilesLove/cards.txt"));
 		while(sc.hasNextLine())
 		{
 			String st[] = sc.nextLine().split(":");

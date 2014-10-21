@@ -8,3 +8,4 @@ P, Pit
 R, Reliquary
 S, Sacrificial Chamber
 X, Abyss(Closet)
+W, Walkway

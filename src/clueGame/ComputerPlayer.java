@@ -7,7 +7,7 @@ import java.util.Set;
 
 import clueGame.Card.CardType;
 
-public class ComputerPlayer extends Player{
+public class ComputerPlayer extends Player {
 	private char lastRoomVisited;
 	private HashSet<String> seenlist;
 	
