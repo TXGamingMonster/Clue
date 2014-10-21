@@ -63,7 +63,7 @@ public class ComputerPlayer extends Player {
 		for(Player p: game.players)
 			if(!seenlist.contains(p.getName()))
 			{
-				//if(Math.random()<(1.0/count))
+				if(Math.random()<(1.0/count))
 					n = p.getName();
 				count++;
 			}
@@ -71,7 +71,7 @@ public class ComputerPlayer extends Player {
 		for(String s: game.weapons)
 			if(!seenlist.contains(s))
 			{
-				//if(Math.random()<(1.0/count))
+				if(Math.random()<(1.0/count))
 					w = s;
 				count++;
 			}
@@ -79,7 +79,7 @@ public class ComputerPlayer extends Player {
 		for(String s: game.roomlist)
 			if(!seenlist.contains(s))
 			{
-				//if(Math.random()<(1.0/count))
+				if(Math.random()<(1.0/count))
 					r = s;
 				count++;
 			}
