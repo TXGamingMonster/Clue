@@ -21,10 +21,13 @@ public class ComputerPlayer extends Player{
 		int x = (int)Math.random()*targets.size();
 		int i = 0;
 		for(BoardCell b: targets)
+		{
 			if(i == x)
 				return b;
 			else i++;
+		}
 		return null;
+		
 	}
 	
 	public Solution createSuggestion(ClueGame game) {
@@ -56,6 +59,9 @@ public class ComputerPlayer extends Player{
 	
 	public void updateSeen(Card seen) {
 		seenlist.add(seen.getName());
+	}
+	public void setLastVisited(char r) {
+		lastRoomVisited = r;
 	}
 	
 	public boolean isHuman() {
