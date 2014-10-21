@@ -129,23 +129,41 @@ public class PlayerTests {
 	}
 	
 	//Testing handleSuggestion method in ClueGame
+	//NOTE: PLayers call the handleSolution in ClueGame directly when creating a suggestion, it is then disproved if possible
 	@Test
 	public void handlingTest()
 	{
 		game.deal();
 		Solution s = game.getSolution();
+		Player dummy = new Player("", Color.RED, "");
 		//Checking to make sure no Players can disprove the solution
-		Assert.assertNull(game.handleSuggestion(s.getPerson(), s.getRoom(), s.getWeapon(), new Player("", Color.RED, "")));
+		Assert.assertNull(game.handleSuggestion(s.getPerson(), s.getRoom(), s.getWeapon(), dummy));
 		
 		for(Player p: game.getPlayers())
 			for(String w: game.weapons)
 				for(String r: game.roomlist)
 				{
 					if(!p.getName().equals(s.getPerson()) && !!r.equals(s.getRoom()) && !w.equals(s.getWeapon()))
-						Assert.assertNotNull(game.handleSuggestion(p.getName(), r, w, new Player("", Color.RED, "")));
+						Assert.assertNotNull(game.handleSuggestion(p.getName(), r, w, dummy));
 					//Asserting that at least one player can disprove a suggestion that is not the solution
 				}
 
+	}
+	
+	//Testing to make sure ComputerPlayers choose randomly based on seen cards
+	@Test
+	public void suggestionTest() {
+		game.deal();
+		ComputerPlayer comp = new ComputerPlayer("comp", Color.RED, game.roomlist.get(0));
+		for(Player p: game.players)
+			for(Card c: p.getHand())
+				comp.updateSeen(c);
+		
+		//Checking created solution with game solution
+		Assert.assertEquals(game.getSolution().getPerson(), comp.createSuggestion(game).getPerson());
+		Assert.assertEquals(game.getSolution().getWeapon(), comp.createSuggestion(game).getWeapon());
+		Assert.assertEquals(game.getSolution().getRoom(), comp.createSuggestion(game).getRoom());
+		
 	}
 	
 	//Testing random ComputerPlayer target selection
@@ -176,4 +194,6 @@ public class PlayerTests {
 		assertTrue(b > 10);
 		assertTrue(c > 10);
 	}
+	
+	
 }

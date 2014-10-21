@@ -14,6 +14,7 @@ public class ComputerPlayer extends Player{
 	public ComputerPlayer(String string, Color blue, String string2) {
 		// TODO Auto-generated constructor stub
 		super(string,blue,string2);
+		seenlist = new HashSet<String>();
 	}
 
 	public BoardCell pickLocation(Set<BoardCell> targets) {
@@ -26,7 +27,7 @@ public class ComputerPlayer extends Player{
 		return null;
 	}
 	
-	public void createSuggestion(ClueGame game) {
+	public Solution createSuggestion(ClueGame game) {
 		String n=null, w=null, r=null;
 		
 		for(Player p: game.players)
@@ -48,8 +49,9 @@ public class ComputerPlayer extends Player{
 				break;
 			}
 		
-		if(n != null && r !=null && r !=null)
-			game.handleSuggestion(n,w,r,this);
+		if(n != null && w !=null && r !=null)
+			return new Solution(n,w,r);
+		return null;
 	}
 	
 	public void updateSeen(Card seen) {
