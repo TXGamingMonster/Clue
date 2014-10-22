@@ -39,7 +39,22 @@ public class RoomCell extends BoardCell {
 
 	@Override
 	public void draw(Graphics g, int x, int y, int ratio, int ratio2) {
-		g.setColor(Color.CYAN);
-		g.fillRect(x*ratio+10, y*ratio2+10, 25, 25);
+		if(roomInitial == 'X')
+			g.setColor(Color.BLACK);
+		else g.setColor(Color.GRAY);
+		if(isDoorway())
+		{
+			g.setColor(Color.GRAY.darker());
+			g.fillRect(x*ratio+10, y*ratio2+10, 25, 25);
+			g.setColor(Color.RED);
+			switch(doorDirection) {
+				case UP: g.fillRect(x*ratio+10, y*ratio2+5, 25, 25/4); break;
+				case DOWN: g.fillRect(x*ratio+10, y*ratio2+35, 25, 25/4); break;
+				case LEFT: g.fillRect(x*ratio+5, y*ratio2+10, 25/4, 25); break;
+				case RIGHT: g.fillRect(x*ratio+35, y*ratio2+10, 25/4, 25); break;
+			}
+			
+		}
+		else g.fillRect(x*ratio+10, y*ratio2+10, 25, 25);
 	}
 }
