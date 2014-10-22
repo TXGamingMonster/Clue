@@ -1,6 +1,9 @@
 package clueGame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,9 +13,15 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 import clueGame.Card.CardType;
 
-public class ClueGame {
+public class ClueGame extends JFrame{
 	public Map<Character, String> rooms;
 	public Board gameBoard;
 	public ArrayList<Player> players;
@@ -24,7 +33,7 @@ public class ClueGame {
 	
 	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
 	public ClueGame(){
-		gameBoard = new Board("ClueFilesCR/ClueLayout.csv", "ClueFilesCR/ClueLegend.txt");
+		gameBoard = new Board("ClueFilesLove/ClueLayout2.csv", "ClueFilesLove/ClueLegend2.txt");
 		rooms = gameBoard.getRooms();
 		
 		players = new ArrayList<Player>();
@@ -56,11 +65,25 @@ public class ClueGame {
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println(roomlist.size());
-		System.out.println(weapons.size());
+		
 		deck = new Stack<Card>();
 		loadDeck();
 		Collections.shuffle(deck);
+		
+		
+		//GUI Stuff
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Clue");
+		setSize(760, 810);
+		setLocation(500,150);
+		setLayout(new BorderLayout());
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(createFileMenu());
+		
+		add(gameBoard, BorderLayout.CENTER);
+
 	}
 	
 	//The file names have to include the folder name before the file, eclipse looks for the files in the root directory of the project which in our case they aren't.
@@ -217,6 +240,33 @@ public class ClueGame {
 	public Solution getSolution() {
 		// TODO Auto-generated method stub
 		return solution;
+	}
+	
+	
+	//GUI****************************************************************************************
+	private JMenu createFileMenu()
+	{
+	  JMenu menu = new JMenu("File"); 
+	  menu.add(createFileExitItem());
+	  return menu;
+	}
+	private JMenuItem createFileExitItem()
+	{
+	  JMenuItem item = new JMenuItem("Exit");
+	  class MenuItemListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e)
+	    {
+	       System.exit(0);
+	    }
+	  }
+	  item.addActionListener(new MenuItemListener());
+	  return item;
+	}
+
+	public static void main(String[] args) {
+		ClueGame cg = new ClueGame();
+		cg.loadConfigFiles();
+		cg.setVisible(true);
 	}
 	
 }

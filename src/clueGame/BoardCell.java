@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Graphics;
+
 import clueGame.RoomCell.DoorDirection;
 
 abstract public class BoardCell {
@@ -45,5 +47,7 @@ abstract public class BoardCell {
 			return true;
 		return false;
 	}
+
+	public abstract void draw(Graphics g, int r, int c, int ratio, int ratio2);
 
 }

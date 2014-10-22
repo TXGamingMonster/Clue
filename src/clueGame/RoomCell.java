@@ -1,5 +1,8 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class RoomCell extends BoardCell {
 	//this needs to be public for test "FourDoorDirections" unless that test is changed.
 	public enum DoorDirection{UP, DOWN, LEFT, RIGHT, NONE}
@@ -32,5 +35,11 @@ public class RoomCell extends BoardCell {
 	public char getInitial() {
 		//return null char
 		return roomInitial;
+	}
+
+	@Override
+	public void draw(Graphics g, int x, int y, int ratio, int ratio2) {
+		g.setColor(Color.CYAN);
+		g.fillRect(x*ratio+10, y*ratio2+10, 25, 25);
 	}
 }

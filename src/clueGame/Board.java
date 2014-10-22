@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +13,13 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Board {
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+public class Board extends JPanel {
 	private BoardCell[][] layout;
 	private Map<Character, String> rooms;
 	private Map<BoardCell, LinkedList<BoardCell>> adjacencies;
@@ -27,6 +35,9 @@ public class Board {
 		clueLegendFile = legend;
 		rooms = new HashMap<Character, String>();
 		adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
+		
+		//GUI Stuff
+		
 	}
 
 	public void loadBoardConfig() throws BadConfigFormatException {
@@ -285,5 +296,13 @@ public class Board {
 		return numColumns;
 	}
 
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		int ratio = 725/layout.length;
+		int ratio2 = 725/layout[0].length;
+		for(int r=0;r<layout.length;r++)
+			for(int c=0;c<layout[0].length;c++)
+				layout[r][c].draw(g, c, r, ratio, ratio2);
+	}
 
 }
