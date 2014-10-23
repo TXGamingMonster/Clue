@@ -1,22 +1,24 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import clueGame.Card.CardType;
 
 public class Player {
-	private String name,stlocation;
+	private String name;
+	private int stlocation;
 	Color color;
 	private HashSet<Card> cards;
 	private ArrayList<CardType> needs;
 	
-	public Player(String name, Color color, String location) {
+	public Player(String name, Color color, Integer x) {
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.color = color;
-		this.stlocation = location;
+		this.stlocation = x;
 		cards = new HashSet<Card>();
 		needs = new ArrayList<CardType>();
 	}
@@ -47,7 +49,7 @@ public class Player {
 		return color;
 	}
 	
-	public String getStlocation() {
+	public int getStlocation() {
 		return stlocation;
 	}
 
@@ -60,5 +62,10 @@ public class Player {
 		// TODO Auto-generated method stub
 		cards.add(c);
 		needs.add(c.getType());
+	}
+	
+	public void draw(Graphics g, int x, int y, int ratio, int ratio2) {
+		g.setColor(color);
+		g.fillOval(x*ratio+10, y*ratio2+10, 25, 25);
 	}
 }

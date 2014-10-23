@@ -33,7 +33,7 @@ public class ClueGame extends JFrame{
 	
 	//The CR tests initialize with no parameters and we can't change the tests she wrote. So we need to have this as well.
 	public ClueGame(){
-		gameBoard = new Board("ClueFilesLove/ClueLayout2.csv", "ClueFilesLove/ClueLegend2.txt");
+		gameBoard = new Board("ClueFilesLove/ClueLayout2.csv", "ClueFilesLove/ClueLegend2.txt", this);
 		rooms = gameBoard.getRooms();
 		
 		players = new ArrayList<Player>();
@@ -56,12 +56,16 @@ public class ClueGame extends JFrame{
 			}
 			Collections.shuffle(n);
 			Collections.shuffle(roomlist);
-			players.add(new HumanPlayer(n.get(0),Color.BLUE,roomlist.get(0)));
-			players.add(new ComputerPlayer(n.get(1),Color.GREEN,roomlist.get(1)));
-			players.add(new ComputerPlayer(n.get(2),Color.RED,roomlist.get(2)));
-			players.add(new ComputerPlayer(n.get(3),Color.DARK_GRAY,roomlist.get(3)));
-			players.add(new ComputerPlayer(n.get(4),Color.MAGENTA,roomlist.get(4)));
-			players.add(new ComputerPlayer(n.get(5),Color.WHITE,roomlist.get(5)));
+			ArrayList<Integer> nums = new ArrayList<Integer>();
+			for(int i=0;i<6;i++)
+				nums.add(i);
+			Collections.shuffle(nums);
+			players.add(new HumanPlayer(n.get(0),Color.BLUE,nums.get(0)));
+			players.add(new ComputerPlayer(n.get(1),Color.GREEN,nums.get(1)));
+			players.add(new ComputerPlayer(n.get(2),Color.RED,nums.get(2)));
+			players.add(new ComputerPlayer(n.get(3),new Color(245,125,25),nums.get(3)));
+			players.add(new ComputerPlayer(n.get(4),Color.MAGENTA,nums.get(4)));
+			players.add(new ComputerPlayer(n.get(5),Color.WHITE,nums.get(5)));
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
@@ -83,12 +87,11 @@ public class ClueGame extends JFrame{
 		menuBar.add(createFileMenu());
 		
 		add(gameBoard, BorderLayout.CENTER);
-
 	}
 	
 	//The file names have to include the folder name before the file, eclipse looks for the files in the root directory of the project which in our case they aren't.
 	public ClueGame(String layout, String legend) {
-		gameBoard = new Board(layout, legend);
+		gameBoard = new Board(layout, legend, this);
 		rooms = gameBoard.getRooms();
 		
 		players = new ArrayList<Player>();
@@ -111,12 +114,16 @@ public class ClueGame extends JFrame{
 			}
 			Collections.shuffle(n);
 			Collections.shuffle(roomlist);
-			players.add(new HumanPlayer(n.get(0),Color.BLUE,roomlist.get(0)));
-			players.add(new ComputerPlayer(n.get(1),Color.GREEN,roomlist.get(1)));
-			players.add(new ComputerPlayer(n.get(2),Color.RED,roomlist.get(2)));
-			players.add(new ComputerPlayer(n.get(3),Color.DARK_GRAY,roomlist.get(3)));
-			players.add(new ComputerPlayer(n.get(4),Color.MAGENTA,roomlist.get(4)));
-			players.add(new ComputerPlayer(n.get(5),Color.WHITE,roomlist.get(5)));
+			ArrayList<Integer> nums = new ArrayList<Integer>();
+			for(int i=0;i<6;i++)
+				nums.add(i);
+			Collections.shuffle(nums);
+			players.add(new HumanPlayer(n.get(0),Color.BLUE,nums.get(0)));
+			players.add(new ComputerPlayer(n.get(1),Color.GREEN,nums.get(1)));
+			players.add(new ComputerPlayer(n.get(2),Color.RED,nums.get(2)));
+			players.add(new ComputerPlayer(n.get(3),new Color(245,125,25),nums.get(3)));
+			players.add(new ComputerPlayer(n.get(4),Color.MAGENTA,nums.get(4)));
+			players.add(new ComputerPlayer(n.get(5),Color.WHITE,nums.get(5)));
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}

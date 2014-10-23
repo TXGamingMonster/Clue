@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -29,13 +30,14 @@ public class Board extends JPanel {
 	private int numColumns;
 	private String clueLegendFile;
 	private String clueBoardFile;
+	private ClueGame game;
 
-	public Board(String layout, String legend) {
+	public Board(String layout, String legend, ClueGame clueGame) {
 		clueBoardFile = layout;
 		clueLegendFile = legend;
 		rooms = new HashMap<Character, String>();
 		adjacencies = new HashMap<BoardCell, LinkedList<BoardCell>>();
-		
+		game = clueGame;
 		//GUI Stuff
 		
 	}
@@ -303,6 +305,33 @@ public class Board extends JPanel {
 		for(int r=0;r<layout.length;r++)
 			for(int c=0;c<layout[0].length;c++)
 				layout[r][c].draw(g, c, r, ratio, ratio2);
+		
+		for(Player p: game.players)
+			switch(p.getStlocation()) {
+			case 0: p.draw(g, 7, 1, ratio, ratio2); break;
+			case 1: p.draw(g, 0, 11, ratio, ratio2); break;
+			case 2: p.draw(g, 9, 24, ratio, ratio2); break;
+			case 3: p.draw(g, 23, 16, ratio, ratio2); break;
+			case 4: p.draw(g, 24, 8, ratio, ratio2); break;
+			case 5: p.draw(g, 14, 0, ratio, ratio2); break;
+			}
+		
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Times New Roman", 20,20));
+		
+		g.drawString("Butcher's Rest", 40, 58);
+		g.drawString("Reliquary", 275, 116);
+		g.drawString("Garden Maze", 540, 88);
+		g.drawString("Mausoleum", 43, 290);
+		g.drawString("Necropolis", 540, 320);
+		g.drawString("The Pit", 98, 435);
+		g.drawString("Catacombs", 43, 667);
+		g.drawString("Sacrificial Chamber", 305, 582);
+		g.drawString("Hall of Mirrors", 592, 698);
+		
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Times New Roman", 40,40));
+		g.drawString("Abyss", 305, 320);
 	}
 
 }

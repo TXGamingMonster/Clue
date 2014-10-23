@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -12,9 +13,9 @@ public class ComputerPlayer extends Player {
 	private char lastRoomVisited;
 	private HashSet<String> seenlist;
 	
-	public ComputerPlayer(String string, Color blue, String string2) {
+	public ComputerPlayer(String string, Color blue, Integer x) {
 		// TODO Auto-generated constructor stub
-		super(string,blue,string2);
+		super(string,blue,x);
 		seenlist = new HashSet<String>();
 	}
 
@@ -98,5 +99,9 @@ public class ComputerPlayer extends Player {
 	
 	public boolean isHuman() {
 		return false;
+	}
+	
+	public void draw(Graphics g, int x, int y, int ratio, int ratio2) {
+		super.draw(g, x, y, ratio, ratio2);
 	}
 }
