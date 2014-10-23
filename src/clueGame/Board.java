@@ -314,7 +314,7 @@ public class Board extends JPanel {
 			case 3: p.draw(g, 23, 16, ratio, ratio2); break;
 			case 4: p.draw(g, 24, 8, ratio, ratio2); break;
 			case 5: p.draw(g, 14, 0, ratio, ratio2); break;
-			}
+		}
 		
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Times New Roman", 20,20));

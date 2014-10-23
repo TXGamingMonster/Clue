@@ -48,10 +48,10 @@ public class RoomCell extends BoardCell {
 			g.fillRect(x*ratio+10, y*ratio2+10, 25, 25);
 			g.setColor(Color.RED);
 			switch(doorDirection) {
-				case UP: g.fillRect(x*ratio+10, y*ratio2+5, 25, 25/4); break;
-				case DOWN: g.fillRect(x*ratio+10, y*ratio2+35, 25, 25/4); break;
-				case LEFT: g.fillRect(x*ratio+5, y*ratio2+10, 25/4, 25); break;
-				case RIGHT: g.fillRect(x*ratio+35, y*ratio2+10, 25/4, 25); break;
+				case UP: g.fillRect(x*ratio+10, y*ratio2+10, 25, 25/6); break;
+				case DOWN: g.fillRect(x*ratio+10, y*ratio2+31, 25, 25/6); break;
+				case LEFT: g.fillRect(x*ratio+10, y*ratio2+10, 25/6, 25); break;
+				case RIGHT: g.fillRect(x*ratio+31, y*ratio2+10, 25/6, 25); break;
 			}
 			
 		}
