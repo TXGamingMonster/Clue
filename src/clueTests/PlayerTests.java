@@ -91,7 +91,7 @@ public class PlayerTests {
 				{
 					Assert.assertFalse(p.getName().equals(q.getName()));	
 					Assert.assertFalse(p.getColor().equals(q.getColor()));					//No two players are the same
-					Assert.assertFalse(p.getStlocation().equals(q.getStlocation()));
+					Assert.assertFalse(p.getStlocation()==q.getStlocation());
 				}
 		}
 		Assert.assertEquals(1,i);			//Only one player is human
@@ -137,7 +137,7 @@ public class PlayerTests {
 	{
 		game.deal();
 		Solution s = game.getSolution();
-		Player dummy1 = new Player("dummy1", Color.RED, "");
+		Player dummy1 = new Player("dummy1", Color.RED, 0);
 		
 		//Checking to make sure no Players can disprove the game solution
 		Assert.assertNull(game.handleSuggestion(s.getPerson(), s.getRoom(), s.getWeapon(), dummy1));
@@ -165,7 +165,7 @@ public class PlayerTests {
 	@Test
 	public void suggestionTest() {
 		game.deal();
-		ComputerPlayer comp = new ComputerPlayer("comp", Color.RED, game.roomlist.get(0));
+		ComputerPlayer comp = new ComputerPlayer("comp", Color.RED, 0);
 		for(Player p: game.players)
 			for(Card c: p.getHand())
 				comp.updateSeen(c);
@@ -188,7 +188,7 @@ public class PlayerTests {
 			String first=game.getSolution().getPerson();
 			String second="Cthulu";
 			if (first.equals(second)) second="Azanoth";
-			ComputerPlayer comp = new ComputerPlayer("comp", Color.RED, game.roomlist.get(0));
+			ComputerPlayer comp = new ComputerPlayer("comp", Color.RED, 0);
 			for(Player p: game.players)
 				for(Card c: p.getHand())
 				{
@@ -212,7 +212,7 @@ public class PlayerTests {
 	//Testing random ComputerPlayer target selection with no room in question
 	@Test
 	public void targetnoroomTest() {
-		ComputerPlayer player = new ComputerPlayer("", Color.RED, "");
+		ComputerPlayer player = new ComputerPlayer("", Color.RED, 0);
 		// Pick a location with no rooms in target, just three targets
 		game.gameBoard.calcTargets(6, 0, 2);
 		int a = 0;
@@ -239,7 +239,7 @@ public class PlayerTests {
 	//Testing random ComputerPlayer target selection with a room in question
 	@Test
 	public void targetroomTest() {
-		ComputerPlayer player = new ComputerPlayer("", Color.RED, "");
+		ComputerPlayer player = new ComputerPlayer("", Color.RED, 0);
 		// Pick a location with a room in the target
 		game.gameBoard.calcTargets(16, 8, 2);
 		int a = 0;
@@ -277,7 +277,7 @@ public class PlayerTests {
 	//Testing random ComputerPlayer target selection with a room in question CONSIDERING LAST ROOM VISITED
 	@Test
 	public void targetroomconsiderTest() {
-		ComputerPlayer player = new ComputerPlayer("", Color.RED, "");
+		ComputerPlayer player = new ComputerPlayer("", Color.RED, 0);
 		player.setLastVisited('N');
 		// Pick a location with no rooms in target, just three targets
 		game.gameBoard.calcTargets(9, 16, 2);
