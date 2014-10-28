@@ -19,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import clueGUI.DetectiveNotes;
 import clueGame.Card.CardType;
 
 public class ClueGame extends JFrame{
@@ -87,6 +88,8 @@ public class ClueGame extends JFrame{
 		menuBar.add(createFileMenu());
 		
 		add(gameBoard, BorderLayout.CENTER);
+		DetectiveNotes dn=new DetectiveNotes(players,weapons,roomlist);
+		dn.setVisible(true);
 	}
 	
 	//The file names have to include the folder name before the file, eclipse looks for the files in the root directory of the project which in our case they aren't.
